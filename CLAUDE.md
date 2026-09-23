@@ -13,6 +13,9 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
   `data-w-id` und `style="opacity:0"` werden per JS eingeblendet – beim Kopieren von Blöcken die `data-w-id` entfernen oder
   `opacity:0` weglassen, sonst bleibt der neue Block unsichtbar.
 - Navigation, Footer und Cookie-Banner sind auf jeder Seite als HTML dupliziert → Änderungen auf allen Seiten machen.
+- **Schrift Druk (Überschriften) ist eine Testversion ohne Umlaute (ä, ö, ü, ß).** Überschriften mit Umlauten in Druk vermeiden
+  (Webflow-Workaround war z. B. „GeschaEft“) oder Manrope verwenden. Rechtstexte nutzen deshalb Manrope.
+- Rechtstexte-Design: `custom.css` Abschnitt „Rechtstexte“ (`.section_legal`, `.legal-subtitle`, `.legal-text`).
 
 ## Befehle
 - `npm install` · `npm run dev` (http://localhost:8080) · `npm run build` (→ `dist/`)
