@@ -1,0 +1,19 @@
+/* =========================================================================
+   Eigene Ergänzungen zum Webflow-CSS
+   Die Webflow-Datei (public/assets/css/fastlanes.webflow.shared.*.css) bleibt
+   unverändert. Alles Neue kommt hierher; diese Datei wird danach geladen.
+   ========================================================================= */
+
+/* Hero-Titel ist jetzt die <h1> der Startseite (SEO/Screenreader).
+   Standardwerte für h1 neutralisieren, damit die Optik exakt gleich bleibt. */
+h1.header105_heading-wrapper {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+}
+
+/* Ersetzt die leere Überschrift am Ende der AGB (gleiche Höhe wie vorher). */
+.legal-spacer {
+  height: 44px;
+}
