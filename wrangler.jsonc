@@ -1,0 +1,12 @@
+// Cloudflare-Konfiguration: liefert den fertigen Build (dist/) als statische Website aus.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "fastlanes-website",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    // Adressen ohne Schrägstrich wie bei Webflow (/kontakt), unbekannte Adressen -> 404.html (mit Status 404)
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
