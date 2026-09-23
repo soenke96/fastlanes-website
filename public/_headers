@@ -1,0 +1,5 @@
+# Cache-Regeln (Cloudflare). Dateien in /assets und /vendor haben eindeutige Namen -> dürfen dauerhaft gecacht werden (wie bei Webflow).
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
