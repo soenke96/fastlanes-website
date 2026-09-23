@@ -29,7 +29,7 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
 - `npm install` · `npm run dev` (http://localhost:8080) · `npm run build` (→ `dist/`)
 
 ## Wichtig
-- Kontaktformular ist noch ein Webflow-Formular und funktioniert außerhalb von Webflow nicht → muss vor dem Domain-Umzug ersetzt werden.
+- Kontaktformular läuft über Cloudflare Worker + Turnstile + Resend (siehe unten).
 - Cookie-Banner loggt Einwilligungen nach Supabase (`cookie_consent_log`). Beim Testen Cookie per JS setzen statt Buttons zu klicken.
 - Tracking (Meta-Pixel, Google Ads, GTM) wird aktuell vor der Einwilligung geladen – bekannt, Entscheidung des Inhabers steht aus.
 
