@@ -17,3 +17,24 @@ h1.header105_heading-wrapper {
 .legal-spacer {
   height: 44px;
 }
+
+/* Desktop mit schmalem Fenster (ca. 992–1260px):
+   Navigation (73%) und Logo-Wall (72%) waren hier zu schmal –
+   das Header-Logo schrumpfte auf ~20px und die Logo-Reihen liefen rechts raus.
+   Mindestbreite ergänzt; auf breiteren Bildschirmen bleibt alles wie vorher. */
+@media screen and (min-width: 992px) {
+  .nav {
+    width: min(95%, max(73%, 920px));
+  }
+  .section_logos .container {
+    width: min(95%, max(72%, 900px));
+  }
+}
+
+/* Sehr schmale Handys (< 360px): Logos in der Logo-Wall dürfen schmaler als 110px werden. */
+@media screen and (max-width: 359px) {
+  .logo-list_logo {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
