@@ -304,6 +304,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) --><script type="text/javascript" src="https://player.vimeo.com/api/player.js"></script>
 
 <script>
+  if ($("#showreel").length) {
   var player = new Vimeo.Player($("#showreel")[0]);
 
   $("[vimeo=unmute]").click(function() {
@@ -318,4 +319,5 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   $("[vimeo=pause]").click(function() {
     player.pause();
   });
+  }
 </script></body></html>
