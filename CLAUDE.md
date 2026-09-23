@@ -27,3 +27,10 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
 - Cloudflare (Workers mit statischen Assets): `wrangler.jsonc` – liefert `dist/` aus, URLs ohne Schrägstrich (`/kontakt`), unbekannte Adressen → `404.html`.
 - Weiterleitungen in `public/_redirects` (z. B. `/rental` → `/`).
 - Lokal wie auf Cloudflare testen: `npm run build && npx wrangler dev`.
+
+## Kontaktformular
+- `kontakt/index.html` → Script am Seitenende fängt das Absenden ab (Capture-Phase, Webflow-Handler greift nicht) und sendet an `/api/kontakt`.
+- `src/worker.js` prüft Pflichtfelder + Cloudflare Turnstile (unsichtbar) und verschickt die Mail über Resend an `MAIL_TO`.
+- Secrets im Cloudflare-Dashboard (Worker → Settings → Variables and Secrets): `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`. Niemals ins Repo.
+- Turnstile-Sitekey steht im HTML (`data-sitekey` im `.cf-turnstile`-Div). `1x00000000000000000000BB` ist Cloudflares Test-Key.
+- Lokal testen: `.dev.vars` (nicht im Repo) mit Test-Secret `1x0000000000000000000000000000000AA`, dann `npm run build && npx wrangler dev`.

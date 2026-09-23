@@ -1,17 +1,72 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
-// node_modules/wrangler/templates/no-op-worker.js
-var no_op_worker_default = {
-  fetch() {
-    return new Response("Not found", {
-      status: 404,
-      headers: {
-        "Content-Type": "text/html"
-      }
-    });
+// src/worker.js
+var worker_default = {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    if (url.pathname === "/api/kontakt") return handleKontakt(request, env);
+    return env.ASSETS.fetch(request);
   }
 };
+var json = /* @__PURE__ */ __name((data, status = 200) => new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json; charset=utf-8" } }), "json");
+var clean = /* @__PURE__ */ __name((v, max = 256) => String(v ?? "").replace(/[\r\n]+/g, " ").trim().slice(0, max), "clean");
+async function handleKontakt(request, env) {
+  if (request.method !== "POST") return json({ ok: false, error: "method" }, 405);
+  if (!env.TURNSTILE_SECRET_KEY || !env.RESEND_API_KEY) {
+    console.error("Kontaktformular: TURNSTILE_SECRET_KEY oder RESEND_API_KEY fehlt");
+    return json({ ok: false, error: "config" }, 500);
+  }
+  let form;
+  try {
+    form = await request.formData();
+  } catch {
+    return json({ ok: false, error: "form" }, 400);
+  }
+  const name = clean(form.get("Name"));
+  const email = clean(form.get("email"));
+  const telefon = clean(form.get("Telefon"));
+  const datenschutz = form.get("checkbox");
+  const token = form.get("cf-turnstile-response");
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!name || !datenschutz || !emailOk && !telefon) return json({ ok: false, error: "invalid" }, 400);
+  const verify = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    body: new URLSearchParams({
+      secret: env.TURNSTILE_SECRET_KEY,
+      response: String(token ?? ""),
+      remoteip: request.headers.get("CF-Connecting-IP") ?? ""
+    })
+  }).then((r) => r.json()).catch(() => ({ success: false }));
+  if (!verify.success) return json({ ok: false, error: "turnstile" }, 403);
+  const text = [
+    "Neue Anfrage \xFCber das Kontaktformular auf fastlanes.de (Kostenfreies Video-Strategiegespr\xE4ch)",
+    "",
+    `Name:    ${name}`,
+    `E-Mail:  ${email || "\u2013"}`,
+    `Telefon: ${telefon || "\u2013"}`,
+    "",
+    `Datenschutzhinweise zur Kenntnis genommen: ja`,
+    `Gesendet: ${(/* @__PURE__ */ new Date()).toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}`
+  ].join("\n");
+  const mail = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: env.MAIL_FROM,
+      to: [env.MAIL_TO],
+      reply_to: emailOk ? email : void 0,
+      subject: `Neue Anfrage: ${name}`,
+      text
+    })
+  });
+  if (!mail.ok) {
+    console.error("Resend-Fehler", mail.status, await mail.text());
+    return json({ ok: false, error: "mail" }, 502);
+  }
+  return json({ ok: true });
+}
+__name(handleKontakt, "handleKontakt");
 
 // node_modules/wrangler/templates/middleware/middleware-ensure-req-body-drained.ts
 var drainBody = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx) => {
@@ -60,12 +115,12 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// .wrangler/tmp/bundle-y99GHr/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-K2qGRT/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
 ];
-var middleware_insertion_facade_default = no_op_worker_default;
+var middleware_insertion_facade_default = worker_default;
 
 // node_modules/wrangler/templates/middleware/common.ts
 var __facade_middleware__ = [];
@@ -92,7 +147,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-y99GHr/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-K2qGRT/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
@@ -194,4 +249,4 @@ export {
   __INTERNAL_WRANGLER_MIDDLEWARE__,
   middleware_loader_entry_default as default
 };
-//# sourceMappingURL=no-op-worker.js.map
+//# sourceMappingURL=worker.js.map
