@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import { resolve } from 'node:path';
 
 const root = import.meta.dirname;
-const pages = ['index.html', '404.html', 'kontakt/index.html', 'rental/index.html',
+const pages = ['index.html', '404.html', 'kontakt/index.html',
   'impressum/index.html', 'datenschutz/index.html', 'agb/index.html'];
 
 // Saubere URLs wie bei Webflow: /kontakt -> kontakt/index.html, unbekannte Seiten -> 404.html
