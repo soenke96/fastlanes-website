@@ -6,7 +6,8 @@ import { resolve } from 'node:path';
 
 const root = import.meta.dirname;
 const pages = ['index.html', '404.html', 'kontakt/index.html',
-  'impressum/index.html', 'datenschutz/index.html', 'agb/index.html'];
+  'impressum/index.html', 'datenschutz/index.html', 'agb/index.html',
+  'social-first-ads/index.html', 'social-first-content/index.html'];
 
 // Saubere URLs wie bei Webflow: /kontakt -> kontakt/index.html, unbekannte Seiten -> 404.html
 function cleanUrls() {
