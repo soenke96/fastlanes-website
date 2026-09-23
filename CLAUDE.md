@@ -4,7 +4,7 @@ Website von **fastlanes.de** (Videoproduktion Hannover). Ursprünglich in Webflo
 Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **keine** Umstellung auf React/Tailwind/Komponenten.
 
 ## Aufbau
-- Jede Seite ist eine eigene HTML-Datei: `index.html`, `kontakt/index.html`, `rental/index.html`, `impressum/index.html`,
+- Jede Seite ist eine eigene HTML-Datei: `index.html`, `kontakt/index.html`, `impressum/index.html`,
   `datenschutz/index.html`, `agb/index.html`, `404.html`. Neue Seiten auch in `vite.config.js` (`pages`) eintragen.
 - `public/assets/` – Bilder, Videos, Schriften, Lottie, Webflow-CSS/JS (**nicht bearbeiten**, stammt aus Webflow).
 - `public/css/custom.css` – **alle eigenen CSS-Änderungen hierhin** (wird nach dem Webflow-CSS geladen).
