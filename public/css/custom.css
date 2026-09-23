@@ -128,3 +128,48 @@ h1.header105_heading-wrapper {
     max-width: 100%;
   }
 }
+
+/* Impressum: hervorgehobener Kasten „Rechnungen an uns“ (Verlauf wie der Strategie-Kasten der Startseite) */
+.section_legal .legal-highlight {
+  margin-bottom: 3rem;
+  padding: 2rem 2.25rem;
+  border-radius: 1rem;
+  background-image: linear-gradient(32deg, #103830, var(--accent-primary));
+  color: #fff;
+}
+.section_legal .legal-text .legal-highlight h2 {
+  margin: 0 0 1.25rem;
+  padding: 0;
+  border: 0;
+}
+.section_legal .legal-highlight_grid {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: start;
+  gap: 1.5rem 3rem;
+}
+.section_legal .legal-highlight_label {
+  margin-bottom: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+.section_legal .legal-text .legal-highlight p {
+  margin: 0;
+  color: #fff;
+}
+.section_legal .legal-text .legal-highlight a {
+  color: #fff;
+  font-weight: 600;
+}
+@media screen and (max-width: 767px) {
+  .section_legal .legal-highlight {
+    padding: 1.5rem;
+  }
+  .section_legal .legal-highlight_grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
