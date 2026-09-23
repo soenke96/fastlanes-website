@@ -21,3 +21,9 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
 - Kontaktformular ist noch ein Webflow-Formular und funktioniert außerhalb von Webflow nicht → muss vor dem Domain-Umzug ersetzt werden.
 - Cookie-Banner loggt Einwilligungen nach Supabase (`cookie_consent_log`). Beim Testen Cookie per JS setzen statt Buttons zu klicken.
 - Tracking (Meta-Pixel, Google Ads, GTM) wird aktuell vor der Einwilligung geladen – bekannt, Entscheidung des Inhabers steht aus.
+
+## Hosting
+- GitHub: https://github.com/soenke96/fastlanes-website (Branch `main`). Jeder Push auf `main` wird von Cloudflare automatisch gebaut und veröffentlicht.
+- Cloudflare (Workers mit statischen Assets): `wrangler.jsonc` – liefert `dist/` aus, URLs ohne Schrägstrich (`/kontakt`), unbekannte Adressen → `404.html`.
+- Weiterleitungen in `public/_redirects` (z. B. `/rental` → `/`).
+- Lokal wie auf Cloudflare testen: `npm run build && npx wrangler dev`.
