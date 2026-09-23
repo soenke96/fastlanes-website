@@ -5,7 +5,7 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
 
 ## Aufbau
 - Jede Seite ist eine eigene HTML-Datei: `index.html`, `kontakt/index.html`, `impressum/index.html`,
-  `datenschutz/index.html`, `agb/index.html`, `404.html`. Neue Seiten auch in `vite.config.js` (`pages`) eintragen.
+  `datenschutz/index.html`, `agb/index.html`, `social-first-ads/index.html`, `social-first-content/index.html`, `404.html`. Neue Seiten auch in `vite.config.js` (`pages`) eintragen.
 - `public/assets/` – Bilder, Videos, Schriften, Lottie, Webflow-CSS/JS (**nicht bearbeiten**, stammt aus Webflow).
 - `public/css/custom.css` – **alle eigenen CSS-Änderungen hierhin** (wird nach dem Webflow-CSS geladen).
 - Pfade immer root-absolut (`/assets/...`, `/kontakt`).
@@ -16,6 +16,14 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
 - **Schrift Druk (Überschriften) ist eine Testversion ohne Umlaute (ä, ö, ü, ß).** Überschriften mit Umlauten in Druk vermeiden
   (Webflow-Workaround war z. B. „GeschaEft“) oder Manrope verwenden. Rechtstexte nutzen deshalb Manrope.
 - Rechtstexte-Design: `custom.css` Abschnitt „Rechtstexte“ (`.section_legal`, `.legal-subtitle`, `.legal-text`).
+
+## Leistungen / Angebote
+- Zwei öffentliche Produkte: **Social First Ads** (Meta Ads, done for you) und **Social First Content** (organischer Content, Drehtage, Coaching).
+  Startseite `#services` = zwei Produktkarten (`.offer-card`), Details auf den Unterseiten.
+- **Keine Preise, Laufzeiten oder Paket-Details auf der Website.** **Social Recruiting** wird nicht öffentlich beworben (nur Cross-Sell).
+- Die Leistungs-Unterseiten tragen `data-wf-page` der Startseite (`663a5549d8739cd52985a06a`), damit Webflow-Animationen der
+  wiederverwendeten Bausteine (Zeitstrahl `.section_cards`, Überschriften mit `data-w-id`) greifen. Neue Bausteine ohne Webflow-ID
+  bekommen `data-reveal` (Einblenden über `public/js/custom.js`).
 
 ## Befehle
 - `npm install` · `npm run dev` (http://localhost:8080) · `npm run build` (→ `dist/`)
