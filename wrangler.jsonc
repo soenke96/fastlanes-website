@@ -15,7 +15,7 @@
   // Kontaktformular – Empfänger und Absender (Absender-Domain muss bei Resend verifiziert sein)
   "vars": {
     "MAIL_TO": "kontakt@fastlanes.de",
-    "MAIL_FROM": "FASTLANES Website <website@fastlanes.de>"
+    "MAIL_FROM": "FASTLANES Website <website@notify.fastlanes.de>"
   },
   "observability": { "enabled": true }
 }
