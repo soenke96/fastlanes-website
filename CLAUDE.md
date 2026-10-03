@@ -25,6 +25,14 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
   wiederverwendeten Bausteine (Zeitstrahl `.section_cards`, Überschriften mit `data-w-id`) greifen. Neue Bausteine ohne Webflow-ID
   bekommen `data-reveal` (Einblenden über `public/js/custom.js`).
 
+## Logo-Wall, CTAs, Partner-Anfrage
+- Logo-Wall = eine Liste `.logo-list.logo-wall` in `index.html` (21 Logos; Desktop 7 Spalten, sonst 3). Anzahl immer durch 3 und 7 teilbar halten
+  oder Spaltenzahl in `custom.css` anpassen. Neue Logos als weiße PNGs nach `public/img/logos/` (Klasse `is-white`).
+- Standard-CTA: „Kostenloses Social FIRST Konzept anfragen“ → `/kontakt`. Lange/kurze Fassung über `<span class="cta-long">` / `cta-short`.
+- CTA-Kasten am Seitenende (`.container.is-rental-block`, Startseite + Leistungsseiten): Drohne/Kamera nur per CSS (`cta-box_drone`, `cta-box_camera`), keine Webflow-IDs.
+- Agentur-Feld (`.section_partner`, nur Startseite) → `/kontakt?anfrage=partner`; die Kontaktseite setzt dann Überschrift, Button und das versteckte Feld `Anfrageart`.
+- Ein Sprungziel `#kontakt` gibt es nicht – Kontakt-Links immer auf `/kontakt`.
+
 ## Befehle
 - `npm install` · `npm run dev` (http://localhost:8080) · `npm run build` (→ `dist/`)
 
