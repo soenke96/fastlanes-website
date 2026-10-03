@@ -505,13 +505,13 @@ h1.header105_heading-wrapper {
 }
 
 /* =========================================================================
-   Logo-Wall: EINE Liste für alle Bildschirmgrößen (21 Logos)
-   Desktop 7 × 3, Tablet und Handy 3 × 7 – immer ohne Lücke.
+   Logo-Wall: EINE Liste für alle Bildschirmgrößen (20 Logos)
+   Desktop 5 × 4 (wie im Original 5 pro Reihe), Tablet 4 × 5, Handy 2 × 10 – immer ohne Lücke.
    Neue Logos liegen bereits weiß in /img/logos/ (Klasse .is-white = kein Farbfilter).
    ========================================================================= */
 .logo-list.logo-wall {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 3rem 24px;
   align-items: center;
   width: 100%;
@@ -521,8 +521,8 @@ h1.header105_heading-wrapper {
   position: relative;
   min-width: 0;
 }
-/* Trennlinien zwischen den Logos einer Reihe (wie vorher auf Desktop) */
-.logo-wall .logo-list_item:not(:nth-child(7n))::after {
+/* Trennlinien zwischen den Logos einer Reihe (wie im Original) */
+.logo-wall .logo-list_item:not(:nth-child(5n))::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -535,48 +535,43 @@ h1.header105_heading-wrapper {
 .logo-wall .logo-list_logo {
   min-width: 0;
   min-height: 0;
-  max-width: 100%;
+  max-width: min(120px, 100%);
   max-height: 100%;
 }
 .logo-wall .logo-list_logo.is-white {
   filter: none;
 }
-/* Feinabstimmung einzelner Logos (optische Größe angleichen) */
-.logo-wall .logo-list_logo.large { max-width: 100%; max-height: 130%; }
-.logo-wall .logo-list_logo.thinx { max-width: 80%; }
-.logo-wall .logo-list_logo.is-vw { max-height: 96%; }
-.logo-wall .logo-list_logo.is-koelln { max-height: 116%; }
-.logo-wall .logo-list_logo.is-ikea { max-width: 82%; }
-.logo-wall .logo-list_logo.is-durex { max-width: 84%; }
-.logo-wall .logo-list_logo.is-joyn { max-width: 68%; }
-.logo-wall .logo-list_logo.is-bom { max-width: 74%; }
-.logo-wall .logo-list_logo.is-db { max-width: 100%; }
+/* Feinabstimmung einzelner Logos (optische Größe angleichen; Werte der alten Logos wie im Original) */
+.logo-wall .logo-list_logo.large { max-width: 100%; max-height: 125%; }
+.logo-wall .logo-list_logo.kleineherzen { max-width: min(150px, 100%); }
+.logo-wall .logo-list_logo.hannohyp,
+.logo-wall .logo-list_logo.dalgakiran { max-width: min(140px, 100%); }
+.logo-wall .logo-list_logo.thinx { max-width: 100px; }
+.logo-wall .logo-list_logo.is-vw { max-height: 100%; }
+.logo-wall .logo-list_logo.is-ikea { max-width: min(124px, 100%); }
+.logo-wall .logo-list_logo.is-durex { max-width: min(118px, 100%); }
+.logo-wall .logo-list_logo.is-joyn { max-width: 92px; }
+.logo-wall .logo-list_logo.is-bom { max-width: 104px; }
+.logo-wall .logo-list_logo.is-db { max-width: min(150px, 100%); }
 
 @media screen and (max-width: 991px) {
   .logo-list.logo-wall {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2.5rem 2rem;
-    max-width: 620px;
-    margin-left: auto;
-    margin-right: auto;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem 1.75rem;
   }
   .logo-wall .logo-list_item::after {
     display: none;
   }
-  .logo-wall .logo-list_logo {
-    max-width: min(100%, 130px);
-  }
 }
-@media screen and (max-width: 479px) {
+@media screen and (max-width: 599px) {
   .logo-list.logo-wall {
-    gap: 1.75rem 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.25rem 1.5rem;
   }
-  .logo-wall .logo-list_item {
-    height: 38px;
+  .logo-wall .logo-list_logo {
+    max-width: min(110px, 100%);
   }
-  .logo-wall .logo-list_item.small {
-    height: 28px;
-  }
+  .logo-wall .logo-list_logo.is-db { max-width: min(130px, 100%); }
 }
 
 /* =========================================================================
@@ -615,6 +610,10 @@ h1.header105_heading-wrapper {
   position: relative;
   z-index: 2;
 }
+/* Drohne und Kamera: scroll-gekoppelte Webflow-Flugbahn wie im Original (data-w-id, per transform):
+   Drohne +100px -> -50px, Kamera -60px -> +45px mit Drehung. Damit sie den Text nie treffen:
+   Drohne fliegt in einer eigenen Spur ÜBER der Überschrift, Kamera bleibt im freien Rand links unten.
+   Das leichte Schweben läuft über die Eigenschaft translate und stört die Flugbahn nicht. */
 .rental-block .rental-block_image.cta-box_drone,
 .rental-block .rental-block_image.cta-box_camera {
   z-index: 1;
@@ -622,20 +621,26 @@ h1.header105_heading-wrapper {
   inset: auto;
   max-width: none;
   pointer-events: none;
-  animation: cta-float 6s ease-in-out infinite;
+  animation: cta-float 5s ease-in-out infinite;
+  will-change: transform;
 }
 .rental-block .rental-block_image.cta-box_drone {
-  top: 1.25rem;
-  right: 1.5rem;
-  width: 15%;
+  top: -18px;
+  right: 24px;
+  width: clamp(84px, 15%, 129px);
 }
 .rental-block .rental-block_image.cta-box_camera {
-  bottom: 1.25rem;
-  left: 1.75rem;
-  width: 9.5%;
-  --cta-rotate: -7deg;
-  animation-duration: 7.5s;
+  bottom: 1rem;
+  left: 10px;
+  width: clamp(48px, 9.5%, 82px);
+  animation-duration: 6.5s;
   animation-delay: -2s;
+}
+@media screen and (min-width: 641px) {
+  /* Platz für die Flugspur der Drohne über der Überschrift */
+  .section_benefit.wunschanalyse .container.is-rental-block {
+    padding-top: 3.75rem;
+  }
 }
 @media screen and (max-width: 640px) {
   /* schmaler Kasten: kein Platz für Bilder neben dem Text */
@@ -648,8 +653,8 @@ h1.header105_heading-wrapper {
   }
 }
 @keyframes cta-float {
-  0%, 100% { transform: translateY(0) rotate(var(--cta-rotate, 0deg)); }
-  50% { transform: translateY(-10px) rotate(var(--cta-rotate, 0deg)); }
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -9px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .rental-block .rental-block_image.cta-box_drone,
@@ -763,4 +768,99 @@ h1.header105_heading-wrapper {
     width: 100%;
     margin-top: 1rem;
   }
+}
+
+/* Leistungen im Detail: breite Kachel über die ganze Zeile (Analyse) */
+.detail.is-wide {
+  grid-column: 1 / -1;
+}
+.detail.is-wide .check-list {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.6rem 2rem;
+}
+
+/* FAQ (Leistungs-Unterseiten) */
+.faq {
+  z-index: 1;
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 52rem;
+  text-align: left;
+}
+.faq_item {
+  border: 1px solid rgba(75, 197, 172, 0.18);
+  border-radius: 20px;
+  background-image: linear-gradient(32deg, #1a1b1a, #1c3b34);
+  overflow: hidden;
+}
+.faq_item[open] {
+  border-color: rgba(75, 197, 172, 0.45);
+}
+.faq_q {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  font-family: var(--main-text-font);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #fff;
+  cursor: pointer;
+  list-style: none;
+}
+.faq_q::-webkit-details-marker {
+  display: none;
+}
+.faq_icon {
+  position: relative;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.08);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.faq_icon::before,
+.faq_icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+}
+.faq_icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+  transition: opacity 0.3s ease;
+}
+.faq_item[open] .faq_icon {
+  background-color: var(--accent-primary);
+  transform: rotate(180deg);
+}
+.faq_item[open] .faq_icon::after {
+  opacity: 0;
+}
+.faq_a {
+  padding: 0 1.5rem 1.5rem;
+  font-family: var(--main-text-font);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.8);
+}
+.faq_a p {
+  margin: 0 0 0.9rem;
+}
+.faq_a p:last-child {
+  margin-bottom: 0;
+}
+/* KI-Kasten steht jetzt unter dem Ablauf */
+#ablauf .ai-note {
+  margin-top: 3rem;
 }
