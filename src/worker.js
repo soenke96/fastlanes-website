@@ -31,6 +31,7 @@ async function handleKontakt(request, env) {
   const name = clean(form.get('Name'));
   const email = clean(form.get('email'));
   const telefon = clean(form.get('Telefon'));
+  const anfrageart = clean(form.get('Anfrageart')) || 'Kontaktanfrage';
   const datenschutz = form.get('checkbox');
   const token = form.get('cf-turnstile-response');
 
@@ -50,7 +51,9 @@ async function handleKontakt(request, env) {
   if (!verify.success) return json({ ok: false, error: 'turnstile' }, 403);
 
   const text = [
-    'Neue Anfrage über das Kontaktformular auf fastlanes.de (Kostenfreies Video-Strategiegespräch)',
+    'Neue Anfrage über das Kontaktformular auf fastlanes.de',
+    '',
+    `Anfrage: ${anfrageart}`,
     '',
     `Name:    ${name}`,
     `E-Mail:  ${email || '–'}`,
@@ -67,7 +70,7 @@ async function handleKontakt(request, env) {
       from: env.MAIL_FROM,
       to: [env.MAIL_TO],
       reply_to: emailOk ? email : undefined,
-      subject: `Neue Anfrage: ${name}`,
+      subject: `${anfrageart.startsWith('Partner') ? 'Partneranfrage' : 'Neue Anfrage'}: ${name}`,
       text,
     }),
   });

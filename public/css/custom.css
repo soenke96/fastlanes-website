@@ -114,7 +114,7 @@ h1.header105_heading-wrapper {
    Mindestbreite ergänzt; auf breiteren Bildschirmen bleibt alles wie vorher. */
 @media screen and (min-width: 992px) {
   .nav {
-    width: min(95%, max(73%, 920px));
+    width: min(95%, max(73%, 930px));
   }
   .section_logos .container {
     width: min(95%, max(72%, 900px));
@@ -576,5 +576,191 @@ h1.header105_heading-wrapper {
   }
   .logo-wall .logo-list_item.small {
     height: 28px;
+  }
+}
+
+/* =========================================================================
+   Call-to-Actions
+   ========================================================================= */
+/* lange Fassung auf großen Bildschirmen, kurze auf dem Handy */
+.cta-short { display: none; }
+@media screen and (max-width: 479px) {
+  .cta-long { display: none; }
+  .cta-short { display: inline; }
+}
+
+/* Kasten am Seitenende: Drohne und Kamera sitzen fest in den Ecken und schweben nur leicht.
+   (Vorher: Webflow-Flugbahn mit festen Pixelwerten -> überlagerte je nach Breite den Text.)
+   Größen und Abstände hängen an der Kastenbreite (Prozent), nicht an der Bildschirmbreite. */
+@media screen and (min-width: 992px) {
+  /* Kasten mittig (Original: links 326px / rechts 239px Innenabstand ab 1440px -> 43px aus der Mitte) */
+  .section_benefit.wunschanalyse {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .section_benefit.wunschanalyse .container.is-rental-block {
+    width: min(88%, 860px);
+  }
+}
+.container.is-rental-block .rental-block {
+  position: static;
+  padding: 0 17%;
+}
+.container.is-rental-block .text-wrap {
+  position: static;
+  width: 100%;
+}
+.container.is-rental-block .rental-block .main-heading,
+.container.is-rental-block .rental-block .button_primary {
+  position: relative;
+  z-index: 2;
+}
+.rental-block .rental-block_image.cta-box_drone,
+.rental-block .rental-block_image.cta-box_camera {
+  z-index: 1;
+  position: absolute;
+  inset: auto;
+  max-width: none;
+  pointer-events: none;
+  animation: cta-float 6s ease-in-out infinite;
+}
+.rental-block .rental-block_image.cta-box_drone {
+  top: 1.25rem;
+  right: 1.5rem;
+  width: 15%;
+}
+.rental-block .rental-block_image.cta-box_camera {
+  bottom: 1.25rem;
+  left: 1.75rem;
+  width: 9.5%;
+  --cta-rotate: -7deg;
+  animation-duration: 7.5s;
+  animation-delay: -2s;
+}
+@media screen and (max-width: 640px) {
+  /* schmaler Kasten: kein Platz für Bilder neben dem Text */
+  .container.is-rental-block .rental-block {
+    padding: 0;
+  }
+  .rental-block .rental-block_image.cta-box_drone,
+  .rental-block .rental-block_image.cta-box_camera {
+    display: none;
+  }
+}
+@keyframes cta-float {
+  0%, 100% { transform: translateY(0) rotate(var(--cta-rotate, 0deg)); }
+  50% { transform: translateY(-10px) rotate(var(--cta-rotate, 0deg)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rental-block .rental-block_image.cta-box_drone,
+  .rental-block .rental-block_image.cta-box_camera { animation: none; }
+}
+
+/* Agentur-Feld unter dem Kasten (Startseite) */
+.section_partner {
+  z-index: 2;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: -6.5rem; /* näher an den Kasten darüber (dessen Sektion hat 10rem Abstand nach unten) */
+  padding: 0 0 6rem;
+}
+.section_partner .container {
+  width: min(88%, 860px); /* gleiche Breite wie der Kasten darüber */
+}
+.partner-note {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.75rem 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.03);
+  text-align: left;
+}
+.partner-note_label {
+  margin-bottom: 0.5rem;
+  font-family: var(--main-text-font);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+.partner-note .partner-note_title {
+  margin: 0 0 0.35rem;
+  font-family: var(--main-text-font);
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #fff;
+}
+.partner-note_p {
+  margin: 0;
+  font-family: var(--main-text-font);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+}
+.partner-note .button_secondary {
+  flex: none;
+  width: auto;
+}
+@media screen and (max-width: 991px) {
+  .section_partner {
+    margin-top: 0;
+  }
+  .section_partner .container {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .section_partner {
+    padding-bottom: 4rem;
+  }
+  .section_partner .container {
+    width: 88%;
+  }
+  .partner-note {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+  .partner-note .button_secondary {
+    width: 100%;
+  }
+}
+
+/* Im grünen Kasten ist die türkise Hervorhebung kaum lesbar -> weiß */
+.container.is-rental-block .main-heading .text-span {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  background-image: none;
+}
+.container.is-rental-block .main-heading {
+  text-wrap: balance; /* gleichmäßige Zeilen statt einzelner Restwörter */
+}
+
+/* CTA-Kasten auch auf dem Handy zeigen (im Original per .hide-mobile ausgeblendet) –
+   sonst stünde dort nur das Agentur-Feld ohne die eigentliche Anfrage darüber. */
+@media screen and (max-width: 479px) {
+  .section_benefit.wunschanalyse.hide-mobile {
+    display: flex;
+    padding: 2rem 0 2.5rem;
+  }
+  .section_benefit.wunschanalyse .container.is-rental-block {
+    width: 88%;
+    padding: 2.25rem 1.25rem;
+  }
+  .container.is-rental-block .main-heading.is-card {
+    padding-top: 0;
+    font-size: 2rem;
+  }
+  .container.is-rental-block .button_primary.is-rental-block {
+    width: 100%;
+    margin-top: 1rem;
   }
 }
