@@ -26,10 +26,13 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
   bekommen `data-reveal` (Einblenden über `public/js/custom.js`).
 
 ## Logo-Wall, CTAs, Partner-Anfrage
-- Logo-Wall = eine Liste `.logo-list.logo-wall` in `index.html` (21 Logos; Desktop 7 Spalten, sonst 3). Anzahl immer durch 3 und 7 teilbar halten
+- Logo-Wall = eine Liste `.logo-list.logo-wall` in `index.html` (20 Logos; Desktop 5 Spalten wie im Original, Tablet 4, Handy 2). Anzahl durch 5, 4 und 2 teilbar halten
   oder Spaltenzahl in `custom.css` anpassen. Neue Logos als weiße PNGs nach `public/img/logos/` (Klasse `is-white`).
 - Standard-CTA: „Kostenloses Social FIRST Konzept anfragen“ → `/kontakt`. Lange/kurze Fassung über `<span class="cta-long">` / `cta-short`.
-- CTA-Kasten am Seitenende (`.container.is-rental-block`, Startseite + Leistungsseiten): Drohne/Kamera nur per CSS (`cta-box_drone`, `cta-box_camera`), keine Webflow-IDs.
+- CTA-Kasten am Seitenende (`.container.is-rental-block`, Startseite + Leistungsseiten): Drohne/Kamera fliegen über die Webflow-Animation (data-w-id, scroll-gekoppelt);
+  Position/Größe/Flugspur in `custom.css` (`cta-box_drone`, `cta-box_camera`) – so gewählt, dass sie Text und Button nie treffen.
+- Website-Texte ohne Gedankenstriche (–) schreiben; der Inhaber ersetzt sie durch Punkt, Doppelpunkt oder „und“.
+- Textquelle für „Unsere Leistungen“ + Unterseiten: Claude-Doc des Inhabers (Link in `../PROJEKT-LOG.md`).
 - Agentur-Feld (`.section_partner`, nur Startseite) → `/kontakt?anfrage=partner`; die Kontaktseite setzt dann Überschrift, Button und das versteckte Feld `Anfrageart`.
 - Ein Sprungziel `#kontakt` gibt es nicht – Kontakt-Links immer auf `/kontakt`.
 
