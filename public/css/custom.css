@@ -503,3 +503,78 @@ h1.header105_heading-wrapper {
     padding: 1.5rem;
   }
 }
+
+/* =========================================================================
+   Logo-Wall: EINE Liste für alle Bildschirmgrößen (21 Logos)
+   Desktop 7 × 3, Tablet und Handy 3 × 7 – immer ohne Lücke.
+   Neue Logos liegen bereits weiß in /img/logos/ (Klasse .is-white = kein Farbfilter).
+   ========================================================================= */
+.logo-list.logo-wall {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 3rem 24px;
+  align-items: center;
+  width: 100%;
+  max-width: none;
+}
+.logo-wall .logo-list_item {
+  position: relative;
+  min-width: 0;
+}
+/* Trennlinien zwischen den Logos einer Reihe (wie vorher auf Desktop) */
+.logo-wall .logo-list_item:not(:nth-child(7n))::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -12.5px;
+  width: 1px;
+  height: 32px;
+  background-color: #fff6;
+  transform: translateY(-50%);
+}
+.logo-wall .logo-list_logo {
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  max-height: 100%;
+}
+.logo-wall .logo-list_logo.is-white {
+  filter: none;
+}
+/* Feinabstimmung einzelner Logos (optische Größe angleichen) */
+.logo-wall .logo-list_logo.large { max-width: 100%; max-height: 130%; }
+.logo-wall .logo-list_logo.thinx { max-width: 80%; }
+.logo-wall .logo-list_logo.is-vw { max-height: 96%; }
+.logo-wall .logo-list_logo.is-koelln { max-height: 116%; }
+.logo-wall .logo-list_logo.is-ikea { max-width: 82%; }
+.logo-wall .logo-list_logo.is-durex { max-width: 84%; }
+.logo-wall .logo-list_logo.is-joyn { max-width: 68%; }
+.logo-wall .logo-list_logo.is-bom { max-width: 74%; }
+.logo-wall .logo-list_logo.is-db { max-width: 100%; }
+
+@media screen and (max-width: 991px) {
+  .logo-list.logo-wall {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem 2rem;
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .logo-wall .logo-list_item::after {
+    display: none;
+  }
+  .logo-wall .logo-list_logo {
+    max-width: min(100%, 130px);
+  }
+}
+@media screen and (max-width: 479px) {
+  .logo-list.logo-wall {
+    gap: 1.75rem 1rem;
+  }
+  .logo-wall .logo-list_item {
+    height: 38px;
+  }
+  .logo-wall .logo-list_item.small {
+    height: 28px;
+  }
+}
