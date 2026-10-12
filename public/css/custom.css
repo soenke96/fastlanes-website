@@ -551,7 +551,7 @@ h1.header105_heading-wrapper {
 }
 /* Feinabstimmung einzelner Logos (optische Größe angleichen; Werte der alten Logos wie im Original) */
 .logo-wall .logo-list_logo.large { max-width: 100%; max-height: 125%; }
-.logo-wall .logo-list_logo.kleineherzen { max-width: min(150px, 100%); }
+.logo-wall .logo-list_logo.kleineherzen { max-width: min(108px, 100%); } /* CLAAS: fett und kursiv, deshalb kleiner */
 .logo-wall .logo-list_logo.hannohyp,
 .logo-wall .logo-list_logo.dalgakiran { max-width: min(140px, 100%); }
 .logo-wall .logo-list_logo.thinx { max-width: 100px; }
