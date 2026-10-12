@@ -873,3 +873,11 @@ h1.header105_heading-wrapper {
 #ablauf .ai-note {
   margin-top: 3rem;
 }
+
+/* Team: lange Jobbezeichnung. Wo die Karte zu schmal für eine Zeile ist, steht die Kurzform (GF). */
+.job-short { display: none; }
+.team_job:has(.job-long) { white-space: nowrap; }
+@media screen and (min-width: 993px) and (max-width: 1109px) {
+  .job-long { display: none; }
+  .job-short { display: inline; }
+}
