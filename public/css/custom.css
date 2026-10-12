@@ -452,6 +452,14 @@ h1.header105_heading-wrapper {
   color: rgba(255, 255, 255, 0.85);
 }
 
+/* längerer KI-Kasten (mehrere Absätze): Label oben statt mittig */
+.ai-note.is-long {
+  align-items: flex-start;
+}
+.ai-note.is-long .ai-note_label {
+  margin-top: 0.15rem;
+}
+
 /* Leistungen im Detail (Social First Ads) */
 .detail-grid {
   z-index: 1;
@@ -547,12 +555,13 @@ h1.header105_heading-wrapper {
 .logo-wall .logo-list_logo.hannohyp,
 .logo-wall .logo-list_logo.dalgakiran { max-width: min(140px, 100%); }
 .logo-wall .logo-list_logo.thinx { max-width: 100px; }
-.logo-wall .logo-list_logo.is-vw { max-height: 100%; }
-.logo-wall .logo-list_logo.is-ikea { max-width: min(124px, 100%); }
-.logo-wall .logo-list_logo.is-durex { max-width: min(118px, 100%); }
-.logo-wall .logo-list_logo.is-joyn { max-width: 92px; }
-.logo-wall .logo-list_logo.is-bom { max-width: 104px; }
-.logo-wall .logo-list_logo.is-db { max-width: min(150px, 100%); }
+/* Neue Logos bewusst kleiner: fette bzw. flächige Marken (IKEA, Durex, bom, Joyn) wirken sonst wuchtiger als die feinen Schriftzüge */
+.logo-wall .logo-list_logo.is-vw { max-height: 80%; }
+.logo-wall .logo-list_logo.is-ikea { max-width: min(94px, 100%); }
+.logo-wall .logo-list_logo.is-durex { max-width: min(92px, 100%); }
+.logo-wall .logo-list_logo.is-joyn { max-width: 68px; }
+.logo-wall .logo-list_logo.is-bom { max-width: 78px; }
+.logo-wall .logo-list_logo.is-db { max-width: min(116px, 100%); }
 
 @media screen and (max-width: 991px) {
   .logo-list.logo-wall {
@@ -571,7 +580,6 @@ h1.header105_heading-wrapper {
   .logo-wall .logo-list_logo {
     max-width: min(110px, 100%);
   }
-  .logo-wall .logo-list_logo.is-db { max-width: min(130px, 100%); }
 }
 
 /* =========================================================================
