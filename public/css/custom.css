@@ -1099,3 +1099,15 @@ h1.header105_heading-wrapper {
     transform: rotate(4deg) translateY(8%);
   }
 }
+
+/* =========================================================================
+   Team: Fotos sind quadratisch. Die Bildfläche war breiter als hoch (min-height 240px),
+   dadurch wurde unten ein Viertel abgeschnitten und die E-Mail saß am Kinn.
+   Ab Tablet-Breite quadratisch = ganzes Foto sichtbar.
+   ========================================================================= */
+@media screen and (min-width: 768px) {
+  .team_image-wrap {
+    aspect-ratio: 1 / 1;
+    min-height: 0;
+  }
+}
