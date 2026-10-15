@@ -883,28 +883,41 @@ h1.header105_heading-wrapper {
 }
 
 /* =========================================================================
-   Social First Ads Karte (Startseite): drei Spalten mit Ad-Beispielen (9:16),
-   die sich beim Scrollen gegenläufig bewegen (links hoch, Mitte runter, rechts hoch).
+   Social First Ads Karte (Startseite): Wand aus Ad-Beispielen (9:16), leicht schräg in 3D,
+   Spalten bewegen sich beim Scrollen gegenläufig (abwechselnd hoch/runter).
    Bewegung: public/js/custom.js (Abschnitt "Reel-Wall"). Bilder: /img/ads/
+   8 Spalten, in schmalen Karten (≤ 400 px) 6 (äußere ausgeblendet). Anordnung der Bilder: gleiche Motive bewusst weit auseinander.
    ========================================================================= */
 .reel-wall {
   position: absolute;
   inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4.2%;
+  overflow: hidden;
+  perspective: 1100px;
+  container-type: inline-size;
   background: radial-gradient(circle at 50% 40%, #1f4a40, #121312 75%);
   transition: transform 0.6s ease;
 }
 .offer-card:hover .reel-wall {
   transform: scale(1.04);
 }
+.reel-wall_inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 128%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.8%;
+  transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-11deg);
+  transform-style: preserve-3d;
+}
 .reel-wall_col {
-  flex: 0 0 19.7%;
+  flex: 0 0 10.6%;
   display: flex;
   flex-direction: column;
-  gap: clamp(6px, 1.4vw, 12px);
+  gap: clamp(5px, 0.8vw, 9px);
   will-change: transform;
 }
 .reel-wall_col img {
@@ -913,6 +926,19 @@ h1.header105_heading-wrapper {
   height: auto;
   aspect-ratio: 191 / 374;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  border-radius: 7px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+}
+/* nach Kartenbreite statt Bildschirmbreite: schmale Karte = 6 Spalten */
+@container (max-width: 400px) {
+  .reel-wall_col:first-child,
+  .reel-wall_col:last-child {
+    display: none;
+  }
+  .reel-wall_col {
+    flex-basis: 14.6%;
+  }
+  .reel-wall_inner {
+    gap: 2%;
+  }
 }

@@ -22,6 +22,7 @@
   var walls = document.querySelectorAll('.reel-wall');
   if (!walls.length) return;
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var SPEED = 1.2; // Weg pro Spalte über den ganzen Scrollbereich, in Kartenhöhen
   var ticking = false;
   function update() {
     ticking = false;
@@ -31,10 +32,10 @@
       if (r.bottom < -100 || r.top > vh + 100) return;
       var h = wall.offsetHeight;
       var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-      Array.prototype.forEach.call(wall.children, function (col) {
+      Array.prototype.forEach.call(wall.querySelectorAll('.reel-wall_col'), function (col) {
         var tile = col.firstElementChild ? col.firstElementChild.offsetHeight : 0;
         var base = parseFloat(col.getAttribute('data-reel-base') || 0) * tile;
-        var move = still ? 0 : parseFloat(col.getAttribute('data-reel')) * (p - 0.5) * h * 0.8;
+        var move = still ? 0 : parseFloat(col.getAttribute('data-reel')) * (p - 0.5) * h * SPEED;
         col.style.transform = 'translate3d(0,' + (base + move).toFixed(1) + 'px,0)';
       });
     });
