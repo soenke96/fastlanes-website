@@ -2154,30 +2154,13 @@ h1.header105_heading-wrapper {
   }
 }
 
-/* Iteration: deutlich hervorgehoben */
-.case-iteration {
-  position: relative;
-  padding: 2.5rem 2rem 2rem;
-  border: 1px solid rgba(75, 197, 172, 0.35);
-  border-radius: 24px;
-  background: linear-gradient(150deg, rgba(75, 197, 172, 0.14), rgba(75, 197, 172, 0.02) 75%);
-  box-shadow: 0 30px 70px -40px rgba(75, 197, 172, 0.55);
-}
+/* Iteration: kein eigener Block, nur die Überschrift etwas kräftiger als die übrigen Mini-Labels */
 .case-iteration .case-iteration_label {
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 100vw;
-  background-color: var(--accent-primary);
-  font-family: var(--main-text-font);
-  font-size: 0.8rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #0b1f1b;
-}
-.case-iteration .case-path strong {
-  font-size: 1.25rem;
+  color: var(--accent-primary);
 }
 
 /* Zitatkarten gleich hoch, Profilbild und Name auf einer Linie */
