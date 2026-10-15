@@ -48,3 +48,33 @@
   window.addEventListener('load', request);
   update();
 })();
+
+// Content-Bühne (Social First Content Karte): Videos stumm abspielen, solange sie im Bild sind.
+(function () {
+  var stage = document.querySelector('.content-stage');
+  if (!stage) return;
+  var videos = stage.querySelectorAll('video');
+  var bar = stage.querySelector('.cs-progress');
+  var yt = stage.querySelector('.cs-video[data-slot="yt"]');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  var RATE = 0.85; // etwas langsamer als normal, wirkt ruhiger
+  videos.forEach(function (v) { v.muted = true; });
+  new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      videos.forEach(function (v) {
+        if (e.isIntersecting) {
+          if (v.preload === 'none') { v.preload = 'auto'; v.load(); }
+          v.playbackRate = RATE;
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        } else {
+          v.pause();
+        }
+      });
+    });
+  }, { rootMargin: '100px 0px' }).observe(stage);
+  // Fortschrittsbalken folgt dem YouTube-Video
+  if (yt && bar) yt.addEventListener('timeupdate', function () {
+    if (yt.duration) bar.style.setProperty('--cs-progress', (yt.currentTime / yt.duration * 100).toFixed(1) + '%');
+  });
+})();
