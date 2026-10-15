@@ -222,3 +222,53 @@
     });
   });
 })();
+
+// Projekte-Library: Klick auf eine Kachel öffnet das Video im Player-Fenster (Iframe bzw. Video wird erst dann geladen)
+(function () {
+  var items = document.querySelectorAll('.lib-item');
+  if (!items.length) return;
+  var modal = document.createElement('div');
+  modal.className = 'lib-modal';
+  modal.hidden = true;
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.innerHTML = '<div class="lib-modal_box"></div><button type="button" class="lib-modal_close" aria-label="Schließen">&times;</button>';
+  document.body.appendChild(modal);
+  var box = modal.querySelector('.lib-modal_box');
+  var closeBtn = modal.querySelector('.lib-modal_close');
+  var last = null;
+  function close() {
+    modal.hidden = true;
+    box.innerHTML = '';
+    document.documentElement.classList.remove('lib-open');
+    if (last) last.focus();
+  }
+  function open(item) {
+    last = item.querySelector('button');
+    modal.classList.toggle('is-vertical', item.classList.contains('is-vertical'));
+    modal.setAttribute('aria-label', item.getAttribute('data-title'));
+    var file = item.getAttribute('data-file');
+    if (file) {
+      var v = document.createElement('video');
+      v.controls = true; v.autoplay = true; v.playsInline = true; v.setAttribute('playsinline', '');
+      v.innerHTML = '<source src="' + file + '.webm" type="video/webm"><source src="' + file + '.mp4" type="video/mp4">';
+      box.appendChild(v);
+    } else {
+      var f = document.createElement('iframe');
+      f.src = item.getAttribute('data-player');
+      f.allow = 'accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.setAttribute('allowfullscreen', 'true');
+      f.title = item.getAttribute('data-title');
+      box.appendChild(f);
+    }
+    modal.hidden = false;
+    document.documentElement.classList.add('lib-open');
+    closeBtn.focus();
+  }
+  items.forEach(function (item) {
+    item.addEventListener('click', function () { open(item); });
+  });
+  closeBtn.addEventListener('click', close);
+  modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) close(); });
+})();

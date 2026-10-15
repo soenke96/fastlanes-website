@@ -2186,3 +2186,184 @@ h1.header105_heading-wrapper {
   height: 100%;
   border: 0;
 }
+
+/* Projekte: Video-Library (/projekte), gebaut mit tools/projekte-library.mjs */
+.lib-grid {
+  grid-row-gap: 32px;
+  grid-column-gap: 32px;
+}
+.lib-item {
+  height: auto;
+  min-height: 300px;
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+}
+.lib-item .projekte_grid-item_heading {
+  font-size: 1.2rem;
+  text-align: left;
+}
+.lib-item.has-logo .projekte_grid-item_overlay {
+  padding-right: 150px;
+}
+.lib-item .projekte_grid-item_play-button {
+  border: 0;
+  padding: 0;
+  color: inherit;
+  cursor: pointer;
+  margin-bottom: 3.5rem;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+.lib-item:hover .projekte_grid-item_play-button,
+.lib-item .projekte_grid-item_play-button:focus-visible {
+  transform: scale(1.12);
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.lib-item .projekte_grid-item_image {
+  transform: scale(var(--zoom, 1));
+  transition: transform 0.6s ease;
+}
+.lib-item:hover .projekte_grid-item_image {
+  transform: scale(calc(var(--zoom, 1) * 1.04));
+}
+/* Kampagne: Spot + Hochformate in einer Zeile, alle gleich hoch */
+.lib-group {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 16fr 5.0625fr 5.0625fr 5.0625fr;
+  gap: 16px;
+}
+.lib-group .lib-item.is-vertical {
+  aspect-ratio: auto;
+  height: 100%;
+}
+.lib-item.is-vertical .projekte_grid-item_overlay {
+  padding: 1rem;
+}
+.lib-item.is-vertical .projekte_grid-item_heading {
+  font-size: 0.9rem;
+}
+.lib-item.is-vertical .projekte_grid-item_label {
+  margin-top: 0.4rem;
+  font-size: 0.7rem;
+}
+.lib-item.is-vertical .projekte_grid-item_play-button {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 45%;
+}
+@media screen and (max-width: 1100px) {
+  .lib-group {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .lib-group .lib-item:first-child {
+    grid-column: 1 / -1;
+  }
+  .lib-group .lib-item.is-vertical {
+    aspect-ratio: 9 / 16;
+    height: auto;
+  }
+}
+@media screen and (max-width: 767px) {
+  .lib-item.has-logo .projekte_grid-item_overlay {
+    padding-right: 120px;
+  }
+  .lib-grid {
+    grid-row-gap: 20px;
+  }
+  .lib-item {
+    min-height: 220px;
+  }
+  .lib-item .projekte_grid-item_heading {
+    font-size: 1.05rem;
+  }
+  .lib-group .lib-item.is-vertical {
+    min-height: 0;
+  }
+  .lib-group {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .lib-group .lib-item:first-child {
+    grid-column: 1 / -1;
+  }
+  .lib-group .lib-item.is-vertical {
+    aspect-ratio: 9 / 16;
+    height: auto;
+  }
+  .lib-item.is-vertical .projekte_grid-item_overlay {
+    padding: 0.6rem;
+  }
+  .lib-item.is-vertical .projekte_grid-item_heading {
+    font-size: 0.68rem;
+  }
+  .lib-item.is-vertical .projekte_grid-item_label {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+  .lib-item.is-vertical .projekte_grid-item_play-button {
+    width: 36px;
+    height: 36px;
+    margin-top: 0;
+    margin-bottom: 60%;
+  }
+}
+
+/* Player-Fenster: Video lädt erst beim Klick */
+.lib-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+  background-color: rgba(8, 8, 8, 0.92);
+}
+.lib-modal[hidden] {
+  display: none;
+}
+.lib-modal_box {
+  position: relative;
+  width: min(92vw, calc(84vh * 16 / 9), 1400px);
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #000;
+}
+.lib-modal.is-vertical .lib-modal_box {
+  width: min(92vw, calc(84vh * 9 / 16));
+  aspect-ratio: 9 / 16;
+}
+.lib-modal_box iframe,
+.lib-modal_box video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.lib-modal_close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 99px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.lib-modal_close:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+html.lib-open {
+  overflow: hidden;
+}
+.lib-item .projekte_grid-item_logo.is-color {
+  filter: none;
+  max-height: 56px;
+  border-radius: 6px;
+}
