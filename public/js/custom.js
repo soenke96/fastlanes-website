@@ -30,22 +30,28 @@
     walls.forEach(function (wall) {
       var r = wall.getBoundingClientRect();
       if (r.bottom < -100 || r.top > vh + 100) return;
-      var h = wall.offsetHeight;
+      if (!wall._cols) measure(wall);
       var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-      Array.prototype.forEach.call(wall.querySelectorAll('.reel-wall_col'), function (col) {
-        var tile = col.firstElementChild ? col.firstElementChild.offsetHeight : 0;
-        var base = parseFloat(col.getAttribute('data-reel-base') || 0) * tile;
-        var move = still ? 0 : parseFloat(col.getAttribute('data-reel')) * (p - 0.5) * h * SPEED;
-        col.style.transform = 'translate3d(0,' + (base + move).toFixed(1) + 'px,0)';
+      wall._cols.forEach(function (c) {
+        var y = (c.base + (still ? 0 : c.dir * (p - 0.5) * wall._h * SPEED)).toFixed(1);
+        if (y !== c.last) { c.last = y; c.el.style.transform = 'translate3d(0,' + y + 'px,0)'; }
       });
+    });
+  }
+  // Maße einmal lesen (und nach Größenänderung neu), danach nur noch schreiben
+  function measure(wall) {
+    wall._h = wall.offsetHeight;
+    wall._cols = Array.prototype.map.call(wall.querySelectorAll('.reel-wall_col'), function (col) {
+      var tile = col.firstElementChild ? col.firstElementChild.offsetHeight : 0;
+      return { el: col, dir: parseFloat(col.getAttribute('data-reel')), base: parseFloat(col.getAttribute('data-reel-base') || 0) * tile, last: null };
     });
   }
   function request() {
     if (!ticking) { ticking = true; requestAnimationFrame(update); }
   }
   window.addEventListener('scroll', request, { passive: true });
-  window.addEventListener('resize', request);
-  window.addEventListener('load', request);
+  window.addEventListener('resize', function () { walls.forEach(function (w) { w._cols = null; }); request(); });
+  window.addEventListener('load', function () { walls.forEach(function (w) { w._cols = null; }); request(); });
   update();
 })();
 
@@ -83,7 +89,8 @@
     var r = stage.getBoundingClientRect(), vh = window.innerHeight;
     if (r.bottom < -100 || r.top > vh + 100) return;
     var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
-    var h = stage.offsetHeight * Math.min(1, stage.offsetWidth / 450); // in schmalen Karten weniger Weg
+    if (!stage._h) stage._h = stage.offsetHeight * Math.min(1, stage.offsetWidth / 450); // in schmalen Karten weniger Weg
+    var h = stage._h;
     drift.forEach(function (d) {
       if (d.el) d.el.style.setProperty('--cs-y', ((p - 0.5) * h * d.f * 2).toFixed(1) + 'px');
     });
@@ -91,6 +98,7 @@
   window.addEventListener('scroll', function () {
     if (!ticking) { ticking = true; requestAnimationFrame(move); }
   }, { passive: true });
+  window.addEventListener('resize', function () { stage._h = 0; move(); });
   move();
   // Fortschrittsbalken folgt dem YouTube-Video
   if (yt && bar) yt.addEventListener('timeupdate', function () {

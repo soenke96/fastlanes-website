@@ -221,6 +221,7 @@ h1.header105_heading-wrapper {
 .offer-card_media {
   position: relative;
   overflow: hidden;
+  contain: layout paint;
   aspect-ratio: 16 / 9;
   border-radius: 16px;
 }
@@ -247,9 +248,8 @@ h1.header105_heading-wrapper {
   padding: 0.35rem 0.8rem;
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 100vw;
-  background-color: rgba(18, 18, 18, 0.45);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
+  /* bewusst ohne backdrop-filter: Weichzeichner über laufenden Videos/bewegter Wand kostet bei jedem Bild Rechenzeit */
+  background-color: rgba(18, 18, 18, 0.72);
   font-family: var(--main-text-font);
   font-size: 0.75rem;
   font-weight: 600;
@@ -911,7 +911,6 @@ h1.header105_heading-wrapper {
   align-items: center;
   gap: 1.8%;
   transform: translate(-50%, -50%) rotateX(20deg) rotateZ(-11deg);
-  transform-style: preserve-3d;
 }
 .reel-wall_col {
   flex: 0 0 10.6%;
@@ -925,7 +924,6 @@ h1.header105_heading-wrapper {
   position: relative;
   overflow: hidden;
   border-radius: 7px;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
 }
 .reel-ad img {
   display: block;
@@ -1010,7 +1008,6 @@ h1.header105_heading-wrapper {
   justify-content: center;
   align-items: center;
   transform: rotateY(-16deg) rotateX(4deg);
-  transform-style: preserve-3d;
 }
 .cs-phone {
   position: relative;
