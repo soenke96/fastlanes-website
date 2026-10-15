@@ -2050,3 +2050,79 @@ h1.header105_heading-wrapper {
     transform: none;
   }
 }
+
+/* casusQuo „Die Ads“: Collage, Ränder laufen weich aus (es geht ums Gefühl, nicht um einzelne Ads) */
+.case-collage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  -webkit-mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 72% 68% at 50% 50%, #000 55%, transparent 100%);
+}
+.case-collage_item {
+  position: absolute;
+  left: calc(var(--l) * 1%);
+  top: calc(var(--t) * 1%);
+  z-index: var(--z);
+  overflow: hidden;
+  width: calc(var(--w) * 1%);
+  aspect-ratio: 4 / 5;
+  border-radius: 10px;
+  background-color: #0b0c0b;
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  opacity: var(--o);
+  transform: rotate(var(--r));
+}
+.case-collage_item img,
+.case-collage_item video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media screen and (max-width: 767px) {
+  .case-collage {
+    aspect-ratio: 1 / 1;
+  }
+  .case-collage_item {
+    width: calc(var(--w) * 1.55%);
+  }
+}
+
+/* Zitate im Testimonial-Bereich: als Zitat abgehoben, Profilbild rund, Name linksbündig */
+.case-testimonial_quotes .case-bigquote.has-face {
+  position: relative;
+  padding: 3rem 1.75rem 1.75rem;
+  border: 1px solid rgba(75, 197, 172, 0.2);
+  border-radius: 22px;
+  background: linear-gradient(150deg, rgba(75, 197, 172, 0.12), rgba(75, 197, 172, 0.02) 70%);
+}
+.case-testimonial_quotes .case-bigquote.has-face::before {
+  content: "“";
+  position: absolute;
+  top: -0.35rem;
+  left: 1.4rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 5.5rem;
+  line-height: 1;
+  color: var(--accent-primary);
+}
+.case-testimonial_quotes .case-bigquote.has-face blockquote {
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  font-weight: 500;
+  line-height: 1.5;
+}
+.case-bigquote.has-face figcaption {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+.case-bigquote.has-face figcaption span {
+  display: block;
+  text-align: left;
+}
+.case-bigquote.has-face figcaption img {
+  width: 64px;
+  height: 64px;
+}
