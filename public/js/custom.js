@@ -154,3 +154,71 @@
     });
   });
 })();
+
+// Collage (casusQuo „Die Ads“): Motive wandern beim Scrollen leicht, Videos laufen nur beim Drüberfahren mit der Maus.
+(function () {
+  var box = document.querySelector('.case-collage');
+  if (!box) return;
+  var items = Array.prototype.slice.call(box.querySelectorAll('.case-collage_item'));
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Bewegung: vordere Ebenen wandern weiter als hintere, abwechselnd hoch/runter
+  if (!still) {
+    var ticking = false;
+    var move = function () {
+      ticking = false;
+      var r = box.getBoundingClientRect(), vh = window.innerHeight;
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height))) - 0.5;
+      var h = box.offsetHeight;
+      items.forEach(function (el, i) {
+        var z = parseFloat(el.style.getPropertyValue('--z')) || 1;
+        var dir = i % 2 ? 1 : -1;
+        el.style.setProperty('--py', (p * h * (0.08 + z * 0.035) * dir).toFixed(1) + 'px');
+      });
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(move); }
+    }, { passive: true });
+    move();
+  }
+  // Hover: Video erst beim Drüberfahren laden und abspielen (nur Geräte mit Maus)
+  if (!window.matchMedia('(hover: hover)').matches) return;
+  items.forEach(function (el) {
+    var src = el.getAttribute('data-hover-video');
+    if (!src) return;
+    var v = null;
+    el.addEventListener('mouseenter', function () {
+      if (!v) {
+        v = document.createElement('video');
+        v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', '');
+        v.innerHTML = '<source src="' + src + '.webm" type="video/webm"><source src="' + src + '.mp4" type="video/mp4">';
+        el.appendChild(v);
+      }
+      el.classList.add('is-playing');
+      var pr = v.play();
+      if (pr && pr.catch) pr.catch(function () {});
+    });
+    el.addEventListener('mouseleave', function () {
+      el.classList.remove('is-playing');
+      if (v) v.pause();
+    });
+  });
+})();
+
+// Interview über Cloudflare Stream: Player wird erst beim Klick eingebunden
+(function () {
+  document.querySelectorAll('.case-player[data-stream]').forEach(function (box) {
+    var btn = box.querySelector('.case-player_play');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var f = document.createElement('iframe');
+      f.src = box.getAttribute('data-stream');
+      f.allow = 'accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;';
+      f.setAttribute('allowfullscreen', 'true');
+      f.title = 'Interview mit casusQuo';
+      var img = box.querySelector('img');
+      if (img) img.replaceWith(f); else box.prepend(f);
+      box.classList.add('is-playing');
+    });
+  });
+})();
