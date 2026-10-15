@@ -33,7 +33,7 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
   Position/Größe/Flugspur in `custom.css` (`cta-box_drone`, `cta-box_camera`) – so gewählt, dass sie Text und Button nie treffen.
 - Website-Texte ohne Gedankenstriche (–) schreiben; der Inhaber ersetzt sie durch Punkt, Doppelpunkt oder „und“.
 - Textquelle für „Unsere Leistungen“ + Unterseiten: Claude-Doc des Inhabers (Link in `../PROJEKT-LOG.md`).
-- Social-First-Ads-Karte (Startseite): statt Foto eine leicht schräge 3D-Wand aus Ad-Beispielen (`.reel-wall`, 8 Spalten à 8 Kacheln, in schmalen Karten 6; Bilder `public/img/ads/`). Spalten bewegen sich beim Scrollen abwechselnd hoch/runter (`custom.js` Abschnitt „Reel-Wall“, `SPEED`; `data-reel` = Richtung, `data-reel-base` = Versatz in Kachelhöhen). Die Verteilung der Bilder ist so gewählt, dass gleiche Motive und die drei JYSK-Studio-Motive nie nah beieinander liegen. Bei neuen Bildern neu verteilen.
+- Social-First-Ads-Karte (Startseite): statt Foto eine leicht schräge 3D-Wand aus Ad-Beispielen (`.reel-wall`, 8 Spalten à 8 Kacheln, in schmalen Karten 6; Bilder `public/img/ads/`). Spalten bewegen sich beim Scrollen abwechselnd hoch/runter (`custom.js` Abschnitt „Reel-Wall“, `SPEED`; `data-reel` = Richtung, `data-reel-base` = Versatz in Kachelhöhen). Verteilung per Sichtbarkeits-Simulation: in der Mitte nie doppelt (Werkzeug + Anleitung: `../tools/reel/`). Bei neuen Bildern neu verteilen.
 - Agentur-Feld (`.section_partner`, nur Startseite) → `/kontakt?anfrage=partner`; die Kontaktseite setzt dann Überschrift, Button und das versteckte Feld `Anfrageart`.
 - Ein Sprungziel `#kontakt` gibt es nicht – Kontakt-Links immer auf `/kontakt`.
 
