@@ -73,6 +73,25 @@
       });
     });
   }, { rootMargin: '100px 0px' }).observe(stage);
+  // Scroll-Bewegung: jedes Fenster wandert leicht, unterschiedlich schnell und teils gegenläufig
+  var drift = [['.cs-yt', -0.09], ['.cs-shorts', 0.12], ['.cs-tiktok', -0.13], ['.cs-insta', 0.1]].map(function (d) {
+    return { el: stage.querySelector(d[0]), f: d[1] };
+  });
+  var ticking = false;
+  function move() {
+    ticking = false;
+    var r = stage.getBoundingClientRect(), vh = window.innerHeight;
+    if (r.bottom < -100 || r.top > vh + 100) return;
+    var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+    var h = stage.offsetHeight * Math.min(1, stage.offsetWidth / 450); // in schmalen Karten weniger Weg
+    drift.forEach(function (d) {
+      if (d.el) d.el.style.setProperty('--cs-y', ((p - 0.5) * h * d.f * 2).toFixed(1) + 'px');
+    });
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(move); }
+  }, { passive: true });
+  move();
   // Fortschrittsbalken folgt dem YouTube-Video
   if (yt && bar) yt.addEventListener('timeupdate', function () {
     if (yt.duration) bar.style.setProperty('--cs-progress', (yt.currentTime / yt.duration * 100).toFixed(1) + '%');

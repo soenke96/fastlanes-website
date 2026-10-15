@@ -973,6 +973,7 @@ h1.header105_heading-wrapper {
   align-items: center;
   gap: 3%;
   padding: 0 3.8%;
+  perspective: 900px;
   background: radial-gradient(circle at 30% 35%, #1f4a40, #121312 75%);
   transition: transform 0.6s ease;
 }
@@ -995,6 +996,11 @@ h1.header105_heading-wrapper {
   height: 100%;
   object-fit: cover;
 }
+/* leichte 3D-Schräge: beide Seiten zur Mitte hin gedreht; translate = Scroll-Bewegung (custom.js) */
+.cs-yt {
+  transform: rotateY(16deg) rotateX(4deg);
+  translate: 0 var(--cs-y, 0px);
+}
 .cs-yt .cs-screen {
   aspect-ratio: 16 / 9;
 }
@@ -1003,23 +1009,27 @@ h1.header105_heading-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: rotateY(-16deg) rotateX(4deg);
+  transform-style: preserve-3d;
 }
 .cs-phone {
   position: relative;
   flex: 0 0 39%;
+  translate: 0 var(--cs-y, 0px);
 }
 .cs-phone + .cs-phone {
   margin-left: -8%;
 }
+/* deutlich versetzt: außen tiefer, Mitte höher */
 .cs-shorts {
-  transform: rotate(-5deg) translateY(4%);
+  transform: rotate(-4deg) translateY(13%);
 }
 .cs-tiktok {
   z-index: 1;
-  transform: translateY(-3%);
+  transform: translateY(-13%);
 }
 .cs-insta {
-  transform: rotate(5deg) translateY(4%);
+  transform: rotate(4deg) translateY(13%);
 }
 .cs-phone .cs-screen {
   aspect-ratio: 9 / 16;
@@ -1084,5 +1094,14 @@ h1.header105_heading-wrapper {
 @container (max-width: 400px) {
   .content-stage {
     padding-bottom: 46px;
+  }
+  .cs-shorts {
+    transform: rotate(-4deg) translateY(8%);
+  }
+  .cs-tiktok {
+    transform: translateY(-8%);
+  }
+  .cs-insta {
+    transform: rotate(4deg) translateY(8%);
   }
 }
