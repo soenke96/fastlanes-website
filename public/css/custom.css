@@ -938,11 +938,9 @@ h1.header105_heading-wrapper {
   inset: 0;
   background: url("/img/reels/ui-1.svg") center / 100% 100% no-repeat;
 }
-.reel-tile:nth-child(3n + 2)::after {
-  background-image: url("/img/reels/ui-2.svg");
-}
-.reel-tile:nth-child(3n)::after {
-  background-image: url("/img/reels/ui-3.svg");
+/* JYSK-Motive (Employer Branding) mit „Jetzt bewerben“, alle anderen „Mehr dazu“ */
+.reel-tile.is-job::after {
+  background-image: url("/img/reels/ui-bewerben.svg");
 }
 /* nach Kartenbreite statt Bildschirmbreite: schmale Karte = 6 Spalten */
 @container (max-width: 400px) {
