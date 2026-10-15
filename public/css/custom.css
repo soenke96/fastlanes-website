@@ -1812,24 +1812,21 @@ h1.header105_heading-wrapper {
   }
 }
 
-/* casusQuo: Testimonial hinten, zwei Ads (4:5) schweben davor */
+/* casusQuo: Testimonial oben links, zwei Ads (4:5) rechts, leicht überlappend.
+   Positionen so gewählt, dass die Untertitel des Testimonials (unten mittig) und die Texte der Ads frei bleiben:
+   Ad A (Data Scientist) oben rechts vorne, Ad B (weißer Balken) darunter versetzt, überlappt nur eine Bildecke. */
 .case-combo {
   position: absolute;
   inset: 0;
   z-index: 1;
 }
 .case-combo .case-wide {
-  inset: 4% 22% 30% 0;
+  inset: 6% 36% 34% 0;
 }
 .case-combo_ads {
   position: absolute;
-  right: 0;
-  bottom: 2%;
+  inset: 0;
   z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  gap: 4%;
-  width: 60%;
 }
 .case-ad {
   position: relative;
@@ -1840,8 +1837,20 @@ h1.header105_heading-wrapper {
   background-color: #0b0c0b;
   box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
-.case-combo_ads .case-ad:first-child {
-  transform: translateY(-14%);
+.case-combo_ads .case-ad {
+  position: absolute;
+}
+.case-combo_ads .case-ad.is-a {
+  z-index: 2;
+  top: 0;
+  right: 2%;
+  width: 25%;
+}
+.case-combo_ads .case-ad.is-b {
+  z-index: 1;
+  top: 40%;
+  right: 14%;
+  width: 28%;
 }
 .case-ad video {
   display: block;
