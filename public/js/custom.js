@@ -126,3 +126,31 @@
   }, { rootMargin: '150px 0px' });
   vids.forEach(function (v) { io.observe(v); });
 })();
+
+// Interview-Player (Case Studies): das Video wird erst geladen, wenn man auf Abspielen klickt.
+(function () {
+  document.querySelectorAll('[data-click-video]').forEach(function (box) {
+    var btn = box.querySelector('.case-player_play');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var v = document.createElement('video');
+      v.controls = true;
+      v.playsInline = true;
+      v.setAttribute('playsinline', '');
+      v.poster = (box.querySelector('img') || {}).src || '';
+      [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(function (s) {
+        var src = box.getAttribute('data-' + s[0]);
+        if (!src) return;
+        var el = document.createElement('source');
+        el.src = src;
+        el.type = s[1];
+        v.appendChild(el);
+      });
+      var img = box.querySelector('img');
+      if (img) img.replaceWith(v); else box.prepend(v);
+      box.classList.add('is-playing');
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    });
+  });
+})();
