@@ -920,14 +920,31 @@ h1.header105_heading-wrapper {
   gap: clamp(5px, 0.8vw, 9px);
   will-change: transform;
 }
-.reel-wall_col img {
+/* Kachel = Bild + Instagram-Ad-Oberfläche (Profil, Gesponsert, Icons, Button) als SVG darüber */
+.reel-ad {
+  position: relative;
+  overflow: hidden;
+  border-radius: 7px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+}
+.reel-ad img {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 191 / 374;
   object-fit: cover;
-  border-radius: 7px;
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+}
+.reel-ad::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/img/ads/overlay-1.svg") center / 100% 100% no-repeat;
+}
+.reel-ad:nth-child(3n + 2)::after {
+  background-image: url("/img/ads/overlay-2.svg");
+}
+.reel-ad:nth-child(3n)::after {
+  background-image: url("/img/ads/overlay-3.svg");
 }
 /* nach Kartenbreite statt Bildschirmbreite: schmale Karte = 6 Spalten */
 @container (max-width: 400px) {
