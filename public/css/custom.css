@@ -221,7 +221,8 @@ h1.header105_heading-wrapper {
 .offer-card_media {
   position: relative;
   overflow: hidden;
-  contain: layout paint;
+  /* Breitenabfragen (@container) der Ads-Wand und Content-Bühne beziehen sich auf diese Fläche */
+  container-type: inline-size;
   aspect-ratio: 16 / 9;
   border-radius: 16px;
 }
@@ -885,7 +886,7 @@ h1.header105_heading-wrapper {
 /* =========================================================================
    Social First Ads Karte (Startseite): Wand aus Ad-Beispielen (9:16), leicht schräg in 3D,
    Spalten bewegen sich beim Scrollen gegenläufig (abwechselnd hoch/runter).
-   Bewegung: public/js/custom.js (Abschnitt "Reel-Wall"). Bilder: /img/ads/
+   Bewegung: public/js/custom.js (Abschnitt "Reel-Wall"). Bilder: /img/reels/ (bewusst ohne „ad“ im Namen: Werbeblocker sperren /ads/- und ad-Pfade)
    8 Spalten, in schmalen Karten (≤ 400 px) 6 (äußere ausgeblendet). Anordnung der Bilder: gleiche Motive bewusst weit auseinander.
    ========================================================================= */
 .reel-wall {
@@ -893,7 +894,6 @@ h1.header105_heading-wrapper {
   inset: 0;
   overflow: hidden;
   perspective: 1100px;
-  container-type: inline-size;
   background: radial-gradient(circle at 50% 40%, #1f4a40, #121312 75%);
   transition: transform 0.6s ease;
 }
@@ -920,29 +920,29 @@ h1.header105_heading-wrapper {
   will-change: transform;
 }
 /* Kachel = Bild + Instagram-Ad-Oberfläche (Profil, Gesponsert, Icons, Button) als SVG darüber */
-.reel-ad {
+.reel-tile {
   position: relative;
   overflow: hidden;
   border-radius: 7px;
 }
-.reel-ad img {
+.reel-tile img {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 191 / 374;
   object-fit: cover;
 }
-.reel-ad::after {
+.reel-tile::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/img/ads/overlay-1.svg") center / 100% 100% no-repeat;
+  background: url("/img/reels/ui-1.svg") center / 100% 100% no-repeat;
 }
-.reel-ad:nth-child(3n + 2)::after {
-  background-image: url("/img/ads/overlay-2.svg");
+.reel-tile:nth-child(3n + 2)::after {
+  background-image: url("/img/reels/ui-2.svg");
 }
-.reel-ad:nth-child(3n)::after {
-  background-image: url("/img/ads/overlay-3.svg");
+.reel-tile:nth-child(3n)::after {
+  background-image: url("/img/reels/ui-3.svg");
 }
 /* nach Kartenbreite statt Bildschirmbreite: schmale Karte = 6 Spalten */
 @container (max-width: 400px) {
@@ -1085,9 +1085,6 @@ h1.header105_heading-wrapper {
 }
 
 /* schmale Karten (Handy): unten Platz für das Label „Organischer Content“ lassen */
-.offer-card_media:has(.content-stage) {
-  container-type: inline-size;
-}
 @container (max-width: 400px) {
   .content-stage {
     padding-bottom: 46px;
