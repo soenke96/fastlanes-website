@@ -1109,3 +1109,380 @@ h1.header105_heading-wrapper {
     min-height: 0;
   }
 }
+
+/* =========================================================================
+   Case Studies: Startseite (#projekte) und Unterseiten /case-studies/…
+   Videos mit data-inview laufen stumm, nur im Sichtbereich (custom.js "Videos im Sichtbereich").
+   Medien: /video/cases/ (gebaut mit ../tools/case-loops.sh und ../tools/casusquo-kurzfassung.sh)
+   ========================================================================= */
+.case-list {
+  z-index: 1;
+  position: relative;
+  display: grid;
+  gap: 1.75rem;
+  width: 100%;
+}
+.case-card {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.75rem;
+  border: 1px solid rgba(75, 197, 172, 0.18);
+  border-radius: 24px;
+  background-image: linear-gradient(32deg, #1a1b1a, #1c3b34);
+  color: #fff;
+  text-align: left;
+  text-decoration: none;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.case-card:hover {
+  border-color: rgba(75, 197, 172, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px -30px rgba(75, 197, 172, 0.45);
+}
+.case-card:nth-child(even) .case-card_media {
+  order: 2;
+}
+.case-card_media,
+.case-hero_media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  background: radial-gradient(circle at 50% 40%, #1f4a40, #121312 75%);
+}
+.case-card_body {
+  padding: 1rem 1.25rem 1rem 0;
+}
+.case-card:nth-child(even) .case-card_body {
+  padding: 1rem 0 1rem 1.25rem;
+}
+.case-card_label {
+  margin-bottom: 0.75rem;
+  font-family: var(--main-text-font);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+/* doppelte Klasse, damit es gegen .main-heading.is-card aus Webflow greift */
+.case-card .case-card_title {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  text-align: left;
+}
+.case-card_text {
+  margin-bottom: 0;
+}
+/* drei Hochkant-Videos nebeneinander, Mitte etwas höher */
+.case-phones {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4%;
+}
+.case-phone {
+  overflow: hidden;
+  width: 23%;
+  aspect-ratio: 9 / 16;
+  border-radius: 10px;
+  background-color: #0b0c0b;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.14);
+  transform: translateY(5%);
+}
+.case-phone:nth-child(2) {
+  transform: translateY(-5%);
+}
+.case-phone video,
+.case-wide video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.case-wide {
+  position: absolute;
+  inset: 0;
+}
+/* Kennzahlen */
+.case-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin: 1.25rem 0 1.5rem;
+}
+.case-kpi,
+.case-result {
+  padding: 0.85rem 0.9rem;
+  border: 1px solid rgba(75, 197, 172, 0.18);
+  border-radius: 14px;
+  background-color: rgba(75, 197, 172, 0.06);
+  text-align: left;
+}
+.case-kpi_value {
+  font-family: var(--main-text-font);
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--accent-primary);
+}
+.case-kpi_label {
+  margin-top: 0.35rem;
+  font-family: var(--main-text-font);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.78);
+}
+.case-more {
+  z-index: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+/* Unterseiten */
+.case-hero_media {
+  z-index: 1;
+  width: min(100%, 820px);
+  margin: 2.5rem auto 0;
+}
+.case-kpis.is-hero {
+  z-index: 1;
+  position: relative;
+  width: min(100%, 820px);
+  margin: 1rem auto 0;
+}
+.case-story {
+  z-index: 1;
+  position: relative;
+  width: min(100%, 1000px);
+  margin: 0 auto;
+}
+.case-block {
+  display: grid;
+  grid-template-columns: 0.75fr 1.6fr;
+  gap: 2rem;
+  padding: 2.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+.case-block:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.case-block_head .pillar_number {
+  margin-bottom: 0.75rem;
+}
+.case-block .case-block_head .main-heading {
+  margin-top: 0;
+  text-align: left;
+}
+.case-block_body .main-text {
+  margin-bottom: 1rem;
+}
+.case-block_body .main-text:last-child {
+  margin-bottom: 0;
+}
+.case-quote {
+  margin: 1.25rem 0 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid var(--accent-primary);
+  border-radius: 0 16px 16px 0;
+  background-color: rgba(75, 197, 172, 0.06);
+  font-family: var(--main-text-font);
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: #fff;
+}
+.case-quote cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  font-style: normal;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.72);
+}
+.case-quote cite strong {
+  display: block;
+  color: #fff;
+}
+.case-steps {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.case-steps li {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.03);
+}
+.case-steps_month {
+  font-family: var(--main-text-font);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+.case-steps .main-text {
+  margin: 0;
+}
+.case-results {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+.case-result {
+  padding: 1.1rem 1.2rem;
+}
+.case-testimonial {
+  display: grid;
+  gap: 1.25rem;
+}
+.case-testimonial_video video {
+  display: block;
+  width: 100%;
+  border-radius: 16px;
+  background-color: #000;
+}
+.case-testimonial_quotes .case-quote:first-child {
+  margin-top: 0;
+}
+.case-calc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 0.9rem;
+  margin-bottom: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(75, 197, 172, 0.35);
+  border-radius: 18px;
+  background-color: rgba(75, 197, 172, 0.08);
+  font-family: var(--main-text-font);
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+.case-calc_op {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+.case-calc strong {
+  font-size: 1.35rem;
+  color: var(--accent-primary);
+}
+.case-fazit {
+  width: min(100%, 1000px);
+  margin: 1rem auto 0;
+}
+.case-next {
+  z-index: 1;
+  position: relative;
+  width: min(100%, 1000px);
+  margin: 3.5rem auto 0;
+  text-align: left;
+}
+.case-next_label {
+  margin-bottom: 1rem;
+  font-family: var(--main-text-font);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+.case-next_links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.case-next_link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(75, 197, 172, 0.18);
+  border-radius: 18px;
+  background-image: linear-gradient(32deg, #1a1b1a, #1c3b34);
+  font-family: var(--main-text-font);
+  color: #fff;
+  text-decoration: none;
+  transition: border-color 0.3s ease;
+}
+.case-next_link:hover {
+  border-color: rgba(75, 197, 172, 0.5);
+}
+.case-next_link span {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+}
+.case-next_link strong {
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+/* Case-Sektion so breit wie "Unsere Leistungen" */
+@media screen and (min-width: 992px) {
+  #projekte.section_cases .container {
+    width: min(95%, max(72%, 900px));
+  }
+}
+/* unter 1200 px: Bild über dem Text, damit die Kennzahlen Platz haben */
+@media screen and (max-width: 1199px) {
+  .case-card {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .case-card:nth-child(even) .case-card_media {
+    order: 0;
+  }
+  .case-card_body,
+  .case-card:nth-child(even) .case-card_body {
+    padding: 1rem 0.75rem 0.75rem;
+  }
+}
+@media screen and (max-width: 991px) {
+  .case-block {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .case-next_links {
+    grid-template-columns: 1fr;
+  }
+}
+@media screen and (max-width: 479px) {
+  .case-kpis {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .case-kpi {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .case-kpi .case-kpi_label {
+    margin-top: 0;
+  }
+  .case-results {
+    grid-template-columns: 1fr;
+  }
+  .case-steps li {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}

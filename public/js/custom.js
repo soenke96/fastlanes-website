@@ -105,3 +105,24 @@
     if (yt.duration) bar.style.setProperty('--cs-progress', (yt.currentTime / yt.duration * 100).toFixed(1) + '%');
   });
 })();
+
+// Videos im Sichtbereich (Case Studies): stumme Vorschau-Videos mit data-inview spielen nur, solange sie zu sehen sind.
+(function () {
+  var vids = document.querySelectorAll('video[data-inview]');
+  if (!vids.length || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting) {
+        if (v.preload === 'none') { v.preload = 'auto'; v.load(); }
+        v.muted = true;
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});
+      } else {
+        v.pause();
+      }
+    });
+  }, { rootMargin: '150px 0px' });
+  vids.forEach(function (v) { io.observe(v); });
+})();
