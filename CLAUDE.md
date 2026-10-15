@@ -33,6 +33,7 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
   Position/Größe/Flugspur in `custom.css` (`cta-box_drone`, `cta-box_camera`) – so gewählt, dass sie Text und Button nie treffen.
 - Website-Texte ohne Gedankenstriche (–) schreiben; der Inhaber ersetzt sie durch Punkt, Doppelpunkt oder „und“.
 - Textquelle für „Unsere Leistungen“ + Unterseiten: Claude-Doc des Inhabers (Link in `../PROJEKT-LOG.md`).
+- Social-First-Ads-Karte (Startseite): statt Foto drei Spalten Ad-Beispiele (`.reel-wall`, Bilder `public/img/ads/ad-{links,mitte,rechts}-1..4.webp`), die sich beim Scrollen gegenläufig bewegen (`custom.js` Abschnitt „Reel-Wall“; `data-reel` = Richtung, `data-reel-base` = Versatz in Kachelhöhen). Spalten müssen mind. 4 Kacheln lang bleiben, sonst entstehen Lücken.
 - Agentur-Feld (`.section_partner`, nur Startseite) → `/kontakt?anfrage=partner`; die Kontaktseite setzt dann Überschrift, Button und das versteckte Feld `Anfrageart`.
 - Ein Sprungziel `#kontakt` gibt es nicht – Kontakt-Links immer auf `/kontakt`.
 

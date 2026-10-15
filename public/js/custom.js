@@ -15,3 +15,35 @@
   }, { rootMargin: '0px 0px -10% 0px' });
   els.forEach(function (el) { io.observe(el); });
 })();
+
+// Reel-Wall (Social First Ads Karte): Spalten bewegen sich beim Scrollen gegenläufig.
+// data-reel = Richtung (-1 hoch, 1 runter), data-reel-base = Versatz in Kachelhöhen.
+(function () {
+  var walls = document.querySelectorAll('.reel-wall');
+  if (!walls.length) return;
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var vh = window.innerHeight;
+    walls.forEach(function (wall) {
+      var r = wall.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      var h = wall.offsetHeight;
+      var p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+      Array.prototype.forEach.call(wall.children, function (col) {
+        var tile = col.firstElementChild ? col.firstElementChild.offsetHeight : 0;
+        var base = parseFloat(col.getAttribute('data-reel-base') || 0) * tile;
+        var move = still ? 0 : parseFloat(col.getAttribute('data-reel')) * (p - 0.5) * h * 0.8;
+        col.style.transform = 'translate3d(0,' + (base + move).toFixed(1) + 'px,0)';
+      });
+    });
+  }
+  function request() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener('scroll', request, { passive: true });
+  window.addEventListener('resize', request);
+  window.addEventListener('load', request);
+  update();
+})();

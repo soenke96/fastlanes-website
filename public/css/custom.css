@@ -881,3 +881,38 @@ h1.header105_heading-wrapper {
   .job-long { display: none; }
   .job-short { display: inline; }
 }
+
+/* =========================================================================
+   Social First Ads Karte (Startseite): drei Spalten mit Ad-Beispielen (9:16),
+   die sich beim Scrollen gegenläufig bewegen (links hoch, Mitte runter, rechts hoch).
+   Bewegung: public/js/custom.js (Abschnitt "Reel-Wall"). Bilder: /img/ads/
+   ========================================================================= */
+.reel-wall {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4.2%;
+  background: radial-gradient(circle at 50% 40%, #1f4a40, #121312 75%);
+  transition: transform 0.6s ease;
+}
+.offer-card:hover .reel-wall {
+  transform: scale(1.04);
+}
+.reel-wall_col {
+  flex: 0 0 19.7%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.4vw, 12px);
+  will-change: transform;
+}
+.reel-wall_col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 191 / 374;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
