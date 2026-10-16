@@ -61,3 +61,4 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
 - Secrets im Cloudflare-Dashboard (Worker → Settings → Variables and Secrets): `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`. Niemals ins Repo.
 - Turnstile-Sitekey steht im HTML (`data-sitekey` im `.cf-turnstile`-Div). `1x00000000000000000000BB` ist Cloudflares Test-Key.
 - Lokal testen: `.dev.vars` (nicht im Repo) mit Test-Secret `1x0000000000000000000000000000000AA`, dann `npm run build && npx wrangler dev`.
+- Kontaktseite (16.10.2026): Überschrift „Lass uns über deinen Content sprechen“. Druk hat kein Ü/Ä/Ö: Ü wird als `<span class="uml">u</span>` mit zwei CSS-Punkten gebaut (`.uml` in custom.css), daneben der echte Text in `.sr-only` für Screenreader. Pflichtfelder markiert (Name required, E-Mail oder Telefon wird vor dem Absenden geprüft), Datenschutz verlinkt, „Wir melden uns innerhalb von 24 Stunden bei dir.“, Vimeo-Player und Slider-Skripte dort entfernt.

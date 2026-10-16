@@ -2529,3 +2529,67 @@ h1.header105_heading-wrapper {
 html.lib-open {
   overflow: hidden;
 }
+
+/* Kontaktseite (16.10.2026) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+/* Druk hat kein Ü: zwei Punkte im Stil der Schrift über dem U */
+.uml {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+}
+.uml::before,
+.uml::after {
+  content: "";
+  position: absolute;
+  top: 0.03em;
+  width: 0.1em;
+  height: 0.1em;
+  background-color: currentColor;
+}
+.uml::before {
+  left: 0.07em;
+}
+.uml::after {
+  right: 0.07em;
+}
+.form-req {
+  color: var(--accent-primary);
+}
+.form-hint {
+  width: 100%;
+  margin: 0.6rem 0 0;
+  text-align: left;
+  font-family: var(--main-text-font);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.6);
+}
+.form-promise {
+  margin: 0.9rem 0 0;
+  font-family: var(--main-text-font);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.7);
+}
+.m-contact-checkbox-label {
+  text-align: left;
+}
+.m-contact-checkbox-label a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.m-contact-checkbox-label a:hover {
+  color: var(--accent-primary);
+}
