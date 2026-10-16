@@ -2218,7 +2218,8 @@ h1.header105_heading-wrapper {
 .lib-grid > .w8 {
   grid-column: span 8;
 }
-.lib-grid > .w12 {
+.lib-grid > .w12,
+.lib-grid > .lib-group {
   grid-column: 1 / -1;
 }
 .lib-grid > .h2 {
@@ -2360,11 +2361,14 @@ h1.header105_heading-wrapper {
   color: rgba(255, 255, 255, 0.75);
 }
 
-/* Kampagne: Hochformate nebeneinander in einem großen Feld */
+/* Kampagne: Spot + Hochformate in einer Zeile, alle gleich hoch */
 .lib-group {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 16fr 5.0625fr 5.0625fr 5.0625fr;
   gap: 16px;
+}
+.lib-group .lib-item:first-child {
+  aspect-ratio: 16 / 9;
 }
 .lib-group .lib-item.is-vertical {
   height: 100%;
@@ -2405,7 +2409,10 @@ h1.header105_heading-wrapper {
   .lib-grid > .lib-item {
     aspect-ratio: 16 / 9;
   }
-  .lib-grid > .lib-group {
+  .lib-group {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .lib-group .lib-item:first-child {
     grid-column: 1 / -1;
   }
   .lib-group .lib-item.is-vertical {
