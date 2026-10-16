@@ -42,7 +42,7 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
 - Ein Sprungziel `#kontakt` gibt es nicht – Kontakt-Links immer auf `/kontakt`.
 
 ## Befehle
-- `npm install` · `npm run dev` (http://localhost:8080) · `npm run build` (→ `dist/`)
+- `npm install` · `npm run dev` (http://localhost:8080) · `npm run build` (→ `dist/`, danach legt `scripts/flatten-html.mjs` Unterseiten als `<seite>.html` ab)
 
 ## Wichtig
 - Kontaktformular läuft über Cloudflare Worker + Turnstile + Resend (siehe unten).
@@ -52,13 +52,16 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
 ## Hosting
 - GitHub: https://github.com/soenke96/fastlanes-website (Branch `main`). Jeder Push auf `main` wird von Cloudflare automatisch gebaut und veröffentlicht.
 - Cloudflare (Workers mit statischen Assets): `wrangler.jsonc` – liefert `dist/` aus, URLs ohne Schrägstrich (`/kontakt`), unbekannte Adressen → `404.html`.
+- **Für fastlanes.de: Cloudflare Pages** (Entscheidung Inhaber 16.10.2026: Domain und DNS bleiben bei IONOS, Mails nicht anfassen). Pages kann `www.fastlanes.de` per CNAME bei IONOS verbinden, der Worker nicht (bräuchte Cloudflare-Nameserver).
+  Pages-Projekt baut dasselbe Repo: Build `npm run build`, Ausgabe `dist`, Formular in `functions/api/kontakt.js`. `fastlanes.de` ohne www → Weiterleitung bei IONOS auf www.
+  Damit Pages die Adressen ohne Schrägstrich ausliefert, verschiebt `scripts/flatten-html.mjs` nach dem Build `dist/<seite>/index.html` → `dist/<seite>.html` (der Worker kommt mit beidem klar). Lokal wie Pages testen: `npm run build && npx wrangler pages dev dist`.
 - Weiterleitungen in `public/_redirects` (z. B. `/rental` → `/`).
 - Lokal wie auf Cloudflare testen: `npm run build && npx wrangler dev`.
 
 ## Kontaktformular
 - `kontakt/index.html` → Script am Seitenende fängt das Absenden ab (Capture-Phase, Webflow-Handler greift nicht) und sendet an `/api/kontakt`.
-- `src/worker.js` prüft Pflichtfelder + Cloudflare Turnstile (unsichtbar) und verschickt die Mail über Resend an `MAIL_TO`.
-- Secrets im Cloudflare-Dashboard (Worker → Settings → Variables and Secrets): `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`. Niemals ins Repo.
+- `src/kontakt.js` prüft Pflichtfelder + Cloudflare Turnstile (unsichtbar) und verschickt die Mail über Resend an `MAIL_TO`. Eingebunden vom Worker (`src/worker.js`) und von Pages (`functions/api/kontakt.js`, mit Standardwerten für MAIL_TO/MAIL_FROM).
+- Secrets im Cloudflare-Dashboard (Worker bzw. Pages-Projekt → Einstellungen → Variablen und Geheimnisse): `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`. Niemals ins Repo. Turnstile-Widget braucht alle Hostnamen (workers.dev, pages.dev, www.fastlanes.de, fastlanes.de).
 - Turnstile-Sitekey steht im HTML (`data-sitekey` im `.cf-turnstile`-Div). `1x00000000000000000000BB` ist Cloudflares Test-Key.
 - Lokal testen: `.dev.vars` (nicht im Repo) mit Test-Secret `1x0000000000000000000000000000000AA`, dann `npm run build && npx wrangler dev`.
 - Kontaktseite (16.10.2026): Überschrift „Lass uns über deinen Content sprechen“. Druk hat kein Ü/Ä/Ö: Ü wird als `<span class="uml">u</span>` mit zwei CSS-Punkten gebaut (`.uml` in custom.css), daneben der echte Text in `.sr-only` für Screenreader. Pflichtfelder markiert (Name required, E-Mail oder Telefon wird vor dem Absenden geprüft), Datenschutz verlinkt, „Wir melden uns innerhalb von 24 Stunden bei dir.“, Vimeo-Player und Slider-Skripte dort entfernt.
