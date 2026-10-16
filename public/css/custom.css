@@ -2624,3 +2624,23 @@ html.lib-open {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Case-Kennzahlen am Handy: Zahl und Beschreibung in zwei Spalten, Zahl mittig zur (ggf. zweizeiligen) Beschreibung */
+@media screen and (max-width: 479px) {
+  .case-stats,
+  .case-stats.is-hero {
+    grid-template-columns: auto 1fr;
+    column-gap: 1rem;
+    row-gap: 1.1rem;
+    align-items: center;
+  }
+  .case-stat,
+  .case-stats.is-hero .case-stat,
+  .case-stats.is-hero .case-stat:first-child {
+    display: contents;
+  }
+}
+/* Partnerseite: kein Pfeil (ragte in den längeren Einleitungstext; das Formular steht hier allein in der Mitte) */
+.is-partner .contact-arrow {
+  display: none;
+}
