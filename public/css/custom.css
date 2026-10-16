@@ -560,7 +560,7 @@ h1.header105_heading-wrapper {
 /* Neue Logos bewusst kleiner: fette bzw. flächige Marken (IKEA, Durex, bom, Joyn) wirken sonst wuchtiger als die feinen Schriftzüge */
 .logo-wall .logo-list_logo.is-vw { max-height: 80%; }
 .logo-wall .logo-list_logo.is-ikea { max-width: min(94px, 100%); }
-.logo-wall .logo-list_logo.is-durex { max-width: min(92px, 100%); }
+.logo-wall .logo-list_logo.is-koelln { max-width: min(86px, 100%); } /* Kölln: fetter Schriftzug, deshalb kleiner */
 .logo-wall .logo-list_logo.is-joyn { max-width: 68px; }
 .logo-wall .logo-list_logo.is-bom { max-width: 78px; }
 .logo-wall .logo-list_logo.is-db { max-width: min(116px, 100%); }
