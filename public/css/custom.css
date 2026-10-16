@@ -2593,3 +2593,12 @@ html.lib-open {
 .m-contact-checkbox-label a:hover {
   color: var(--accent-primary);
 }
+
+/* Übergang zum Footer (Feedback Basel 16.10.): Der Hauptbereich schnitt die Lichtscheine der letzten Sektion hart ab,
+   dadurch entstand eine dunkle Kante über dem Footer. Jetzt nur noch seitlich kappen, nach unten laufen sie weich in den Footer aus. */
+@supports (overflow: clip) {
+  .main-wrap {
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+}
