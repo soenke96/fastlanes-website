@@ -1176,15 +1176,24 @@ h1.header105_heading-wrapper {
 }
 .case-item_meta {
   display: flex;
-  align-items: baseline;
-  gap: 0.9rem;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin-bottom: 1.25rem;
   font-family: var(--main-text-font);
 }
+/* deutlich als Case Study erkennbar (Wunsch Inhaber: Übergang von allgemeinen Infos zu Fallbeispielen klar machen) */
 .case-item_index {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.45);
+  padding: 0.45rem 0.9rem;
+  border-radius: 100vw;
+  background-color: var(--accent-primary);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #0b1f1b;
 }
 .case-item_label {
   font-size: 0.8rem;
@@ -2209,8 +2218,7 @@ h1.header105_heading-wrapper {
 .lib-grid > .w8 {
   grid-column: span 8;
 }
-.lib-grid > .w12,
-.lib-grid > .lib-group {
+.lib-grid > .w12 {
   grid-column: 1 / -1;
 }
 .lib-grid > .h2 {
@@ -2255,6 +2263,10 @@ h1.header105_heading-wrapper {
   filter: none;
   max-height: 56px;
   border-radius: 6px;
+}
+.lib-item .projekte_grid-item_logo.is-hdi {
+  max-width: 84px;
+  max-height: 34px;
 }
 /* Kleine Kacheln: kompakter, Play-Button in die Ecke */
 .lib-item.w4 .projekte_grid-item_overlay,
@@ -2348,14 +2360,11 @@ h1.header105_heading-wrapper {
   color: rgba(255, 255, 255, 0.75);
 }
 
-/* Kampagne: Spot + Hochformate in einer Zeile, alle gleich hoch */
+/* Kampagne: Hochformate nebeneinander in einem großen Feld */
 .lib-group {
   display: grid;
-  grid-template-columns: 16fr 5.0625fr 5.0625fr 5.0625fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
-}
-.lib-group .lib-item:first-child {
-  aspect-ratio: 16 / 9;
 }
 .lib-group .lib-item.is-vertical {
   height: 100%;
@@ -2396,10 +2405,7 @@ h1.header105_heading-wrapper {
   .lib-grid > .lib-item {
     aspect-ratio: 16 / 9;
   }
-  .lib-group {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  .lib-group .lib-item:first-child {
+  .lib-grid > .lib-group {
     grid-column: 1 / -1;
   }
   .lib-group .lib-item.is-vertical {
@@ -2436,6 +2442,10 @@ h1.header105_heading-wrapper {
   }
   .lib-card {
     padding: 1.5rem;
+  }
+  .lib-item .projekte_grid-item_logo.is-hdi {
+    max-width: 56px;
+    max-height: 23px;
   }
   .lib-group {
     gap: 10px;
