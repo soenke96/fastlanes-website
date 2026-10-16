@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /datenschutz
+
+Sitemap: https://www.fastlanes.de/sitemap.xml
