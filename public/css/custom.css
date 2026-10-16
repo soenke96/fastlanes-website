@@ -2602,3 +2602,25 @@ html.lib-open {
     overflow-y: visible;
   }
 }
+
+/* Hinter den Kulissen: Hochformat-Fotos als schmalere Kacheln (3:4) statt Querformat-Ausschnitt */
+.splide__slide.is-portrait {
+  width: auto;
+}
+.splide__slide.is-portrait .splide__image {
+  width: auto;
+  aspect-ratio: 3 / 4;
+}
+
+/* Partneranfrage (/kontakt?anfrage=partner): ohne die drei Vorteile, Formular mittig */
+.is-partner .anfrage_content {
+  display: none;
+}
+.is-partner .kontakt_grid {
+  justify-content: center;
+}
+.is-partner .kontakt_card {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}

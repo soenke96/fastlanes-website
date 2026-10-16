@@ -322,7 +322,7 @@ if (new URLSearchParams(location.search).get('anfrage') === 'partner') {
   var $id = function (id) { return document.getElementById(id); };
   document.title = 'Partneranfrage für Agenturen | FASTLANES';
   document.querySelector('h1.main-heading').innerHTML = 'Lass uns <span class="text-span-2">Partner werden</span>';
-  $id('anfrage-intro').textContent = 'Du bist im Marketing oder als Agentur tätig und willst deinen Kunden Social First Content und Ads in unserer Qualität anbieten? Dann lass uns sprechen, wie eine Zusammenarbeit als Business- oder Projektpartner für dich aussehen kann.';
+  $id('anfrage-intro').textContent = 'Du bist im Marketing oder als Agentur tätig und willst deinen Kunden Videoproduktion in unserer Qualität anbieten? Dann lass uns sprechen, wie eine Zusammenarbeit als Business- oder Projektpartner für dich aussehen kann.';
   $id('anfrage-titel').textContent = 'Partneranfrage für Agenturen & Marketer';
   $id('anfrage-foto').src = '/assets/68ed45bd6e373e33ce509fea_Website_Basel_01.png';
   $id('anfrage-foto').alt = 'Basel Hegewald';
@@ -330,16 +330,8 @@ if (new URLSearchParams(location.search).get('anfrage') === 'partner') {
   $id('anfrage-rolle').textContent = 'Geschäftsführung / Projektmanagement';
   $id('anfrageart').value = 'Partneranfrage (Agentur / Marketing)';
   document.querySelector('#wf-form-Kontaktformular [type=submit]').value = 'Als Partner anfragen';
-  var items = document.querySelectorAll('.anfrage_content-item-right');
-  var texts = [
-    ['Persönliches Kennenlernen', 'In einem ersten Gespräch lernen wir dich und deine Kunden kennen und schauen gemeinsam, wo wir dich mit Social First Content und Ads am besten unterstützen können.'],
-    ['Unsere Qualität für deine Kunden', 'Du bekommst Einblick, wie wir Konzept, Produktion und Ads umsetzen, und wie du das als Partner auch deinen eigenen Kunden anbieten kannst.']
-  ];
-  texts.forEach(function (t, i) {
-    if (!items[i]) return;
-    items[i].querySelector('.anfrage_content-heading').textContent = t[0];
-    items[i].querySelector('.text-color-white').textContent = t[1];
-  });
+  // Ohne die drei Vorteile rechts, Formular mittig (Klasse is-partner, Regeln in custom.css)
+  document.documentElement.classList.add('is-partner');
 }
 </script>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
