@@ -2,7 +2,7 @@
 // Wird vom Worker (src/worker.js) und von Cloudflare Pages (functions/api/kontakt.js) gleichermaßen genutzt.
 //
 // Benötigte Secrets (im Cloudflare-Dashboard, NICHT im Code): TURNSTILE_SECRET_KEY, RESEND_API_KEY
-// Normale Variablen: MAIL_TO, MAIL_FROM (Worker: wrangler.jsonc → vars; Pages: Standardwerte in functions/api/kontakt.js)
+// Normale Variablen: MAIL_TO, MAIL_TO_PARTNER (Partneranfragen von /kontakt?anfrage=partner), MAIL_FROM (Worker: wrangler.jsonc → vars; Pages: Standardwerte in functions/api/kontakt.js)
 
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json; charset=utf-8' } });
@@ -59,7 +59,7 @@ export async function handleKontakt(request, env) {
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       from: env.MAIL_FROM,
-      to: [env.MAIL_TO],
+      to: [anfrageart.startsWith('Partner') ? (env.MAIL_TO_PARTNER || env.MAIL_TO) : env.MAIL_TO],
       reply_to: emailOk ? email : undefined,
       subject: `${anfrageart.startsWith('Partner') ? 'Partneranfrage' : 'Neue Anfrage'}: ${name}`,
       text,

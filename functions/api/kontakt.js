@@ -4,6 +4,7 @@ import { handleKontakt } from '../../src/kontakt.js';
 
 const DEFAULTS = {
   MAIL_TO: 'kontakt@fastlanes.de',
+  MAIL_TO_PARTNER: 'basel@fastlanes.de',
   MAIL_FROM: 'FASTLANES Website <website@notify.fastlanes.de>',
 };
 
