@@ -47,7 +47,7 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
 ## Wichtig
 - Kontaktformular läuft über Cloudflare Worker + Turnstile + Resend (siehe unten).
 - Cookie-Banner loggt Einwilligungen nach Supabase (`cookie_consent_log`). Beim Testen Cookie per JS setzen statt Buttons zu klicken.
-- Tracking (Meta-Pixel, Google Ads, GTM) wird aktuell vor der Einwilligung geladen – bekannt, Entscheidung des Inhabers steht aus.
+- Tracking nur nach Einwilligung (seit 22.10.2026): `public/js/consent.js` im <head> jeder Seite lädt Dienste erst nach Auswahl im Banner (Cookie `fl_cookie_consent`). Statistik → Google Tag Manager + Contentsquare (Tag-ID 690420be7a475); Marketing → Google Tag Manager + Google Ads (AW-17770054938) + Meta Pixel. Google Consent Mode (Standard „denied“). Der Banner ruft nach jeder Auswahl `window.flApplyConsent(consent)` auf. Neue Tracking-Dienste nur dort einbauen, nie direkt ins HTML. Banner-Liste und Datenschutzerklärung (Abschnitt 6) mitpflegen.
 
 ## Hosting
 - GitHub: https://github.com/soenke96/fastlanes-website (Branch `main`). Jeder Push auf `main` wird von Cloudflare automatisch gebaut und veröffentlicht.
