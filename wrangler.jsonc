@@ -16,6 +16,7 @@
   "vars": {
     "MAIL_TO": "kontakt@fastlanes.de",
     "MAIL_TO_PARTNER": "basel@fastlanes.de",
+    "MAIL_CC": "soenke@fastlanes.de",
     "MAIL_FROM": "FASTLANES Website <website@notify.fastlanes.de>"
   },
   "observability": { "enabled": true }

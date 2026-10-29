@@ -2,7 +2,8 @@
 // Wird vom Worker (src/worker.js) und von Cloudflare Pages (functions/api/kontakt.js) gleichermaßen genutzt.
 //
 // Benötigte Secrets (im Cloudflare-Dashboard, NICHT im Code): TURNSTILE_SECRET_KEY, RESEND_API_KEY
-// Normale Variablen: MAIL_TO, MAIL_TO_PARTNER (Partneranfragen von /kontakt?anfrage=partner), MAIL_FROM (Worker: wrangler.jsonc → vars; Pages: Standardwerte in functions/api/kontakt.js)
+// Optionales Secret: MAKE_WEBHOOK_URL (Make-Szenario, legt Anfragen im CRM Close an)
+// Normale Variablen: MAIL_TO, MAIL_TO_PARTNER (Partneranfragen von /kontakt?anfrage=partner), MAIL_CC (Kopie, kommagetrennt), MAIL_FROM (Worker: wrangler.jsonc → vars; Pages: Standardwerte in functions/api/kontakt.js)
 
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json; charset=utf-8' } });
@@ -54,17 +55,50 @@ export async function handleKontakt(request, env) {
     `Gesendet: ${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })}`,
   ].join('\n');
 
-  const mail = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: env.MAIL_FROM,
-      to: [anfrageart.startsWith('Partner') ? (env.MAIL_TO_PARTNER || env.MAIL_TO) : env.MAIL_TO],
-      reply_to: emailOk ? email : undefined,
-      subject: `${anfrageart.startsWith('Partner') ? 'Partneranfrage' : 'Neue Anfrage'}: ${name}`,
-      text,
+  const partner = anfrageart.startsWith('Partner');
+  const to = partner ? (env.MAIL_TO_PARTNER || env.MAIL_TO) : env.MAIL_TO;
+  const cc = String(env.MAIL_CC || '').split(',').map((a) => a.trim()).filter((a) => a && a !== to);
+
+  // Make-Webhook (→ CRM Close). Nur aktiv, wenn das Secret MAKE_WEBHOOK_URL gesetzt ist.
+  // Ein Fehler hier blockiert die Anfrage nicht, die Mail geht trotzdem raus.
+  const [vorname, ...rest] = name.split(/\s+/);
+  const webhook = env.MAKE_WEBHOOK_URL
+    ? fetch(env.MAKE_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          vorname,
+          nachname: rest.join(' '),
+          email: emailOk ? email : '',
+          telefon,
+          anfrageart,
+          partneranfrage: partner,
+          quelle: 'Website-Kontaktformular',
+          seite: request.headers.get('Referer') || '',
+          gesendet_am: new Date().toISOString(),
+        }),
+        signal: AbortSignal.timeout(8000),
+      })
+        .then((r) => { if (!r.ok) console.error('Make-Webhook-Fehler', r.status); })
+        .catch((e) => console.error('Make-Webhook nicht erreichbar', String(e)))
+    : Promise.resolve();
+
+  const [mail] = await Promise.all([
+    fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: env.MAIL_FROM,
+        to: [to],
+        cc: cc.length ? cc : undefined,
+        reply_to: emailOk ? email : undefined,
+        subject: `${partner ? 'Partneranfrage' : 'Neue Anfrage'}: ${name}`,
+        text,
+      }),
     }),
-  });
+    webhook,
+  ]);
   if (!mail.ok) {
     console.error('Resend-Fehler', mail.status, await mail.text());
     return json({ ok: false, error: 'mail' }, 502);

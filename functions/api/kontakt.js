@@ -1,10 +1,11 @@
 // Cloudflare Pages: Kontaktformular unter /api/kontakt (gleiche Logik wie im Worker, siehe src/kontakt.js).
-// Secrets im Pages-Projekt unter Einstellungen → Variablen und Geheimnisse: TURNSTILE_SECRET_KEY, RESEND_API_KEY.
+// Secrets im Pages-Projekt unter Einstellungen → Variablen und Geheimnisse: TURNSTILE_SECRET_KEY, RESEND_API_KEY, optional MAKE_WEBHOOK_URL (Anfragen nach Close).
 import { handleKontakt } from '../../src/kontakt.js';
 
 const DEFAULTS = {
   MAIL_TO: 'kontakt@fastlanes.de',
   MAIL_TO_PARTNER: 'basel@fastlanes.de',
+  MAIL_CC: 'soenke@fastlanes.de',
   MAIL_FROM: 'FASTLANES Website <website@notify.fastlanes.de>',
 };
 
