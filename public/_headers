@@ -3,3 +3,9 @@
   Cache-Control: public, max-age=31536000, immutable
 /vendor/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Die Cloudflare-Adressen (Projekt und Vorschau-Deployments) nicht indexieren, nur www.fastlanes.de soll in Suchmaschinen stehen.
+https://fastlanes-de.pages.dev/*
+  X-Robots-Tag: noindex
+https://:version.fastlanes-de.pages.dev/*
+  X-Robots-Tag: noindex
