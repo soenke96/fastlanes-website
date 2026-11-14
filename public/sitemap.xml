@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.fastlanes.de/</loc></url>
-  <url><loc>https://www.fastlanes.de/social-first-content</loc></url>
-  <url><loc>https://www.fastlanes.de/social-first-ads</loc></url>
-  <url><loc>https://www.fastlanes.de/projekte</loc></url>
-  <url><loc>https://www.fastlanes.de/case-studies/paulberger</loc></url>
-  <url><loc>https://www.fastlanes.de/case-studies/casusquo</loc></url>
-  <url><loc>https://www.fastlanes.de/case-studies/neukundengewinnung</loc></url>
-  <url><loc>https://www.fastlanes.de/kontakt</loc></url>
-  <url><loc>https://www.fastlanes.de/impressum</loc></url>
-  <url><loc>https://www.fastlanes.de/agb</loc></url>
+  <url><loc>https://www.fastlanes.de/</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://www.fastlanes.de/social-first-ads</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://www.fastlanes.de/social-first-content</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://www.fastlanes.de/projekte</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://www.fastlanes.de/case-studies/paulberger</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://www.fastlanes.de/case-studies/casusquo</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://www.fastlanes.de/case-studies/neukundengewinnung</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://www.fastlanes.de/kontakt</loc><lastmod>2026-11-14</lastmod></url>
+  <url><loc>https://www.fastlanes.de/impressum</loc><lastmod>2026-11-14</lastmod></url>
 </urlset>

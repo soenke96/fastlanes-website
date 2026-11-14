@@ -41,6 +41,16 @@ Mehrseiten-Website übernommen. Der bestehende Look soll erhalten bleiben – **
 - Agentur-Feld (`.section_partner`, nur Startseite) → `/kontakt?anfrage=partner`; die Kontaktseite tauscht dann per Skript Überschrift („Lass uns Partner werden“), Einleitung, Kartentitel, Ansprechpartner (Basel statt Sönke), die ersten zwei Vorteile, Button und das versteckte Feld `Anfrageart`. Partneranfragen gehen per Mail an `MAIL_TO_PARTNER` (basel@fastlanes.de), alle anderen an `MAIL_TO`.
 - Ein Sprungziel `#kontakt` gibt es nicht – Kontakt-Links immer auf `/kontakt`.
 
+## GEO / SEO (seit 14.11.2026)
+- Strukturierte Daten (JSON-LD), Open-Graph-Tags, noindex (AGB, Datenschutz, 404) und `public/sitemap.xml` kommen aus `../tools/geo-head.mjs`
+  (Block `<!-- geo:start -->…<!-- geo:end -->` vor `</head>`, nicht von Hand ändern). Nach neuen Seiten, Titel-, Beschreibungs- oder FAQ-Änderungen
+  `node tools/geo-head.mjs` (aus `Branding/`) laufen lassen; neue Seiten dort in `PAGES` eintragen. Firmendaten/-beschreibung in `ORG`.
+- FAQ-Blöcke im Muster `<details class="faq_item"><summary class="faq_q"><span>Frage</span>…` werden automatisch als FAQPage ausgelesen.
+- Vorschaubild für geteilte Links: `public/img/og/fastlanes-og.jpg` (1200×630).
+- Titel-Video in der Startseiten-Überschrift: `public/video/hero/titel.{webm,mp4,jpg}` (480 px, statt 2 × 4,7 MB Original). Quelle steht in
+  `data-title-video`, `custom.js` lädt nur die sichtbare Fassung (Desktop- oder Handy-Überschrift).
+- Hintergrund und Plan: `../GEO/`.
+
 ## Befehle
 - `npm install` · `npm run dev` (http://localhost:8080) · `npm run build` (→ `dist/`, danach legt `scripts/flatten-html.mjs` Unterseiten als `<seite>.html` ab)
 

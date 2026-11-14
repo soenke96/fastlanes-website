@@ -16,6 +16,29 @@
   els.forEach(function (el) { io.observe(el); });
 })();
 
+// Titel-Video in der Startseiten-Überschrift: Es gibt eine Desktop- und eine Handy-Fassung der Überschrift.
+// Damit nur die sichtbare das Video lädt, steht die Quelle in data-title-video und wird hier erst gesetzt.
+(function () {
+  var vids = document.querySelectorAll('video[data-title-video]');
+  if (!vids.length) return;
+  function check() {
+    vids.forEach(function (v) {
+      var visible = v.offsetWidth > 0 && v.offsetHeight > 0;
+      if (visible && !v.dataset.loaded) {
+        var base = v.getAttribute('data-title-video');
+        v.innerHTML = '<source src="' + base + '.webm" type="video/webm"><source src="' + base + '.mp4" type="video/mp4">';
+        v.dataset.loaded = '1';
+        v.load();
+      }
+      if (visible && v.dataset.loaded) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      else if (!visible && !v.paused) v.pause();
+    });
+  }
+  var t;
+  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(check, 200); });
+  check();
+})();
+
 // Reel-Wall (Social First Ads Karte): Spalten bewegen sich beim Scrollen gegenläufig.
 // data-reel = Richtung (-1 hoch, 1 runter), data-reel-base = Versatz in Kachelhöhen.
 (function () {
